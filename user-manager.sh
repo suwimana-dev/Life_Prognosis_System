@@ -40,11 +40,13 @@ register_patient() {
 
 # Function to login a user
 login_user() {
+    echo "123234"
     email=$1  # First argument: user's email
     password=$2  # Second argument: user's password
     # Simulate user authentication by checking if the email and password pair exists in user-store.txt
-    if grep "$email;$password" user-store.txt > /dev/null; then
-        echo "success"  # Print success message if authentication is successful
+    result = grep "$email;$password" user-store.txt
+    if [[ -v $result ]]; then
+        echo "$result"  # Print success message if authentication is successful
     else
         echo "failure"  # Print failure message if authentication fails
     fi

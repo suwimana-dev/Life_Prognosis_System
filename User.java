@@ -1,22 +1,27 @@
 /**
  * Abstract User class to define common attributes and methods for all users.
  */
+
 public abstract class User {
+    // Define new data type Profile for user's role
+    public enum Profile {
+        ADMIN, PATIENT
+    }
     private String firstName;
     private String lastName;
     private String inputEmail;
     private String inputPassword;
-    private Profile profile;
-
+    public Profile role;
+    
     /**
      * Constructor to initialize a User object.
      */
-    public User(String firstName, String lastName, String inputEmail, String inputPassword, Profile profile) {
+    public User(String firstName, String lastName, String inputEmail, String inputPassword, Profile role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.inputEmail = inputEmail;
         this.inputPassword = inputPassword;
-        this.profile = profile;
+        this.role = role;
     }
 
     // Getter and Setter methods
@@ -53,13 +58,13 @@ public abstract class User {
         this.inputPassword = inputPassword;
     }
 
-    public Profile getProfile() {
-        return profile;
-    }
+    // public Profile getRole() {
+    //     return profile;
+    // }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
+    // public void setProfile(Profile profile) {
+    //     this.profile = profile;
+    // }
 
     /**
      * Abstract method to be implemented by subclasses for logout functionality.
