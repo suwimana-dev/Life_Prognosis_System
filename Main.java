@@ -43,6 +43,8 @@ public class Main {
                 System.out.println("1. Login:");
                 System.out.println("2. Register");
                 System.out.println("3. Exit");
+                // this option is to be moved back to the admin menu
+                System.out.println("4. Create user");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
                 int choice = Integer.parseInt(reader.readLine()); // Get user's choice
 
@@ -135,7 +137,20 @@ public class Main {
                             System.out.println("Patient registered successfully.");
                         }
                     }
-
+                    // this case is to be moved back under the admin menu
+                    case 4 -> {
+                            // Onboard User
+                        System.out.println("Enter the email of the user to onboard:");
+                        String email = reader.readLine(); // Get user email
+                        if (!isValidEmail(email)) { // Validate email format
+                            System.out.println("Invalid email format. Please try again.");
+                            break;
+                        }
+                        String uuid = UUID.randomUUID().toString(); // Generate UUID
+                        runBashScript("test-create-user.sh", email, uuid); // Call bash script to onboard user
+                        System.out.println("User onboarded with UUID: " + uuid);
+                        break;
+                    }
                     case 10 -> // Patient
                         handlePatientMenu(reader); // Call patient menu handler
                     case 3 -> {
