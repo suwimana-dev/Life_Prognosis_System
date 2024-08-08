@@ -34,7 +34,7 @@ register_patient() {
     dateArt=${10}  # Tenth argument: date of ART initiation
     countryISO=${11}  # Eleventh argument: country ISO code
     # Append patient details to user-store.txt file, separated by semicolons
-    echo "$firstName;$lastName;$email;$uuid;$password;PATIENT;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt$countryISO" >> user-store.txt
+    echo "$email;$password;PATIENT;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt$countryISO" >> user-store.txt
     echo "Patient registered successfully."  # Print confirmation message
 }
 

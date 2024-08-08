@@ -1,16 +1,29 @@
 # Function to register a patient
 
-firstName=$1  # First argument: patient's first name
-lastName=$2  # Second argument: patient's last name
-email=$3  # Third argument: patient's email
+email=$1  # First argument: patient's first name
+password=$2  # Second argument: patient's last name
+firstName=$3  # Third argument: patient's email
 uuid=$4  # Fourth argument: UUID
-password=$5  # Fifth argument: password
+lastName=$5  # Fifth argument: password
 dateBirth=$6  # Sixth argument: date of birth
 statusHiv=$7  # Seventh argument: HIV status (true/false)
 dateDiagnosis=$8  # Eighth argument: date of HIV diagnosis
 statusArt=$9  # Ninth argument: ART status (true/false)
 dateArt=${10}  # Tenth argument: date of ART initiation
 countryISO=${11}  # Eleventh argument: country ISO code
+
+
+# firstName=$1  # First argument: patient's first name
+# lastName=$2  # Second argument: patient's last name
+# email=$3  # Third argument: patient's email
+# uuid=$4  # Fourth argument: UUID
+# password=$5  # Fifth argument: password
+# dateBirth=$6  # Sixth argument: date of birth
+# statusHiv=$7  # Seventh argument: HIV status (true/false)
+# dateDiagnosis=$8  # Eighth argument: date of HIV diagnosis
+# statusArt=$9  # Ninth argument: ART status (true/false)
+# dateArt=${10}  # Tenth argument: date of ART initiation
+# countryISO=${11}  # Eleventh argument: country ISO code
 # Append patient details to user-store.txt file, separated by semicolons
 
 #echo "$firstName    $lastName   $email  $uuid   $password   PATIENT $dateBirth  $statusHiv  $dateDiagnosis  $statusArt  $dateArt    $countryISO" >> user-store.txt
