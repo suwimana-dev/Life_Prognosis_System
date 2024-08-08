@@ -56,16 +56,25 @@ public class Main {
 
                         System.out.println("Enter your email:");
                         String adminEmail = reader.readLine(); // Get admin email
+
                         System.out.println("Enter your password:");
                         String adminPassword = reader.readLine(); // Get admin password
+
                         //String result = runBashScript("user-manager.sh", "login", adminEmail, adminPassword); // Call bash script to login admin
+                        
                         String result = runBashScript("test.sh", adminEmail, adminPassword);
-                        System.out.println(" " + result);
-                        if ("success".equals(result)) {
-                            adminActions(reader); // Call admin actions handler if login is successful
-                        } else {
-                            System.out.println("Invalid login credentials."); // Handle invalid login
-                        }
+
+                        System.out.println("Login was " + result);
+
+                            if (null == result.trim()) {
+                                
+                                System.out.println("Invalid login credentials."); // Handle invalid login
+                            } else // Determine the action based on the user type returned
+                                switch (result.trim()) {
+                                    case "ADMIN" -> adminActions(reader); // Call admin actions handler if login is successful
+                                    case "PATIENT" -> patientActions(reader); // Call patient actions handler if login is successful
+                                    default -> System.out.println("Invalid login credentials."); // Handle invalid login
+                                    }
                     }
                     case 2 -> {
                         // registration for user.
@@ -194,9 +203,10 @@ public class Main {
     private static void adminActions(BufferedReader reader) throws IOException, InterruptedException {
         while (true) { // Loop to keep admin actions menu running
             System.out.println("Admin Actions Menu:");
-            System.out.println("1. Download Reports");
-            System.out.println("2. Download List of Users");
-            System.out.println("3. Logout");
+            System.out.println("1. Create Users");
+            System.out.println("2. Download Reports");
+            System.out.println("3. Download List of Users");
+            System.out.println("4. Logout");
             int choice = Integer.parseInt(reader.readLine()); // Get admin's choice
 
             switch (choice) { // Switch based on admin's choice
@@ -310,9 +320,8 @@ public class Main {
             System.out.println("Patient Actions Menu:");
             System.out.println("1. Update Profile");
             System.out.println("2. View Profile");
-            System.out.println("3. Compute Lifespan");
-            System.out.println("4. Download iCalendar");
-            System.out.println("5. Logout");
+            System.out.println("3. Download iCalendar");
+            System.out.println("4. Logout");
             int choice = Integer.parseInt(reader.readLine()); // Get patient's choice
 
             switch (choice) { // Switch based on patient's choice

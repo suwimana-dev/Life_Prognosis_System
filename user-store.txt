@@ -1,1 +1,2 @@
-abc@email.com;abc;ADMIN
+123;password123;ADMIN
+345;pass345;PATIENT;2222
