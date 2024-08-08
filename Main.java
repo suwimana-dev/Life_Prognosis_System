@@ -411,11 +411,17 @@ public class Main {
                     System.out.println("Profile updated.");
                 }
                 case 2 -> {
-                    // View Profile
-                    System.out.println("Viewing profile...");
-                    // Call bash script to view profile
-                    System.out.println("Profile viewed.");
-                }
+                    try {
+                        // Call the bash script to display the user's profile
+                        String output = runBashScript("ViewProfile.sh", "ggg@1213");
+
+                        // Print the output returned by the bash script
+                        System.out.println(output);
+                    } 
+                    catch (IOException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    }
                 case 3 -> {
                     // Compute Lifespan (to be implemented later)
                     System.out.println("Computing lifespan...");
