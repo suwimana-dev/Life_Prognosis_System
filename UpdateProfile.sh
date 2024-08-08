@@ -13,11 +13,12 @@ else
 fi
 # Check if the user info was found
 if [ -z "$user_info" ]; then
+
     echo "User profile not found."
     exit 1
 else
-
-# Display the existing user profile information for reference
+    user_email=$(echo "$user_info" | awk -F ';' '{print $1}')
+    # Display the existing user profile information for reference
     IFS=';' read -r -a user_array <<< "$user_info"
     echo "Updating Profile for: $email"
     echo "Leave blank to keep current values."
