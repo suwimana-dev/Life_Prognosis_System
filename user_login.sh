@@ -56,6 +56,7 @@ if [ -n "$user_record" ]; then
     # Extract the user type (3rd field) from the user record
     user_type=$(echo "$user_record" | awk -F ';' '{print $3}')
 
+    echo "$email" > session.txt
     echo "$user_type"
 else
     echo "error"
