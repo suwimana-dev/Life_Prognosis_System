@@ -405,9 +405,11 @@ public class Main {
 
             switch (choice) { // Switch based on patient's choice
                 case 1 -> {
+                   try {
+                
                     // Update Profile
                     System.out.println("Updating profile...");
-                    try {
+                    
                     // Call the UpdateProfile.sh script
                     // Assume that `UpdateProfile.sh` takes no arguments; adjust if necessary
                     String result = runBashScript("UpdateProfile.sh");
