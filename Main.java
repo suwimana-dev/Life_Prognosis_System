@@ -105,26 +105,60 @@ public class Main {
                             }
                             System.out.println("HIV Status (true/false):");
                             String statusHiv = reader.readLine(); // Get HIV status
-                            System.out.println("Date of Diagnosis (YYYY-MM-DD):");
-                            String dateDiagnosis = reader.readLine(); // Get date of diagnosis
-                            if (!isValidDate(dateDiagnosis)) { // Validate date format
-                                System.out.println("Invalid date format. Please try again.");
+                            String dateDiagnosis = null;
+                            String statusArt = null;
+                            String dateArt = null;
+                            if (statusHiv.equalsIgnoreCase("true")) {
+                                System.out.println("Date of Diagnosis (YYYY-MM-DD):");
+                                dateDiagnosis = reader.readLine(); // Get date of diagnosis
+                                if (!isValidDate(dateDiagnosis)) { // Validate date format
+                                    System.out.println("Invalid date format. Please try again.");
                                 break;
-                            }
-                            System.out.println("ART Status (true/false):");
-                            String statusArt = reader.readLine(); // Get ART status
-                            System.out.println("Date of ART (YYYY-MM-DD):");
-                            String dateArt = reader.readLine(); // Get date of ART
-                            if (!isValidDate(dateArt)) { // Validate date format
-                                System.out.println("Invalid date format. Please try again.");
+                                }
+                                System.out.println("ART Status (true/false):");
+                                statusArt = reader.readLine(); // Get ART status
+                                System.out.println("Date of ART (YYYY-MM-DD):");
+                                dateArt = reader.readLine(); // Get date of ART
+                                if (!isValidDate(dateArt)) { // Validate date format
+                                    System.out.println("Invalid date format. Please try again.");
                                 break;
-                            }
+                                }
 
-                            // Validate date order
-                            if (!isDateOrderValid(dateBirth, dateDiagnosis, dateArt)) {
-                                System.out.println("Invalid date order. Ensure date of birth is before diagnosis and ART dates.");
+                            //Validate date order
+                                if (!isDateOrderValid(dateBirth, dateDiagnosis, dateArt)) {
+                                    System.out.println("Invalid date order. Ensure date of birth is before diagnosis and ART dates.");
                                 break;
+                                }
+
+                                
+                            } else if (statusHiv.equalsIgnoreCase("false")) {
+                                //return;
+                            } else {
+                                System.out.println("Invalid selection! Exit.");
+                                System.exit(0);
+
                             }
+                            
+                            // System.out.println("Date of Diagnosis (YYYY-MM-DD):");
+                            // String dateDiagnosis = reader.readLine(); // Get date of diagnosis
+                            // if (!isValidDate(dateDiagnosis)) { // Validate date format
+                            //     System.out.println("Invalid date format. Please try again.");
+                            //     break;
+                            // }
+                            // System.out.println("ART Status (true/false):");
+                            // String statusArt = reader.readLine(); // Get ART status
+                            // System.out.println("Date of ART (YYYY-MM-DD):");
+                            // String dateArt = reader.readLine(); // Get date of ART
+                            // if (!isValidDate(dateArt)) { // Validate date format
+                            //     System.out.println("Invalid date format. Please try again.");
+                            //     break;
+                            // }
+
+                            // // Validate date order
+                            // if (!isDateOrderValid(dateBirth, dateDiagnosis, dateArt)) {
+                            //     System.out.println("Invalid date order. Ensure date of birth is before diagnosis and ART dates.");
+                            //     break;
+                            // }
 
                             System.out.println("Country ISO Code:");
                             String countryISO = reader.readLine(); // Get country ISO code
