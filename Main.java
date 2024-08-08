@@ -79,13 +79,12 @@ public class Main {
                         System.out.println("Enter the UUID of the user:");
                         String uuid = reader.readLine(); // Get UUID
                         
-                        // if (!isValidUUID(uuid)) { // Validate UUID format
-                        //     System.out.println("Invalid UUID. Please try again.");
-                        //     break;
-                        // }
+                        if (!isValidUUID(uuid)) { // Validate UUID format
+                             System.out.println("Invalid UUID. Please try again.");
+                             break;
+                         }
                         //String email = runBashScript("user-manager.sh", "verify-uuid", uuid); // Call bash script to verify UUID
-
-                        // Call bash script to verify UUID, returns email
+                        //Call bash script to verify UUID, returns email
                         String email = (runBashScript("verifyuuid.sh", uuid)); 
                         
 
@@ -133,8 +132,8 @@ public class Main {
                             String password = reader.readLine(); // Get password
 
                             // Call bash script to register patient
-                            //runBashScript("user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
-                            runBashScript("user-manager.sh", "register", firstName, lastName, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
+                            runBashScript("user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
+                            //runBashScript("user-manager.sh", "register", firstName, lastName, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
                             System.out.println("Patient registered successfully.");
                         }
                     }
