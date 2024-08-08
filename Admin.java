@@ -4,8 +4,8 @@ import java.io.IOException;
  * Admin class extends User and adds admin-specific methods.
  */
 public class Admin extends User {
-    public Admin(String firstName, String lastName, String inputEmail, String inputPassword, Profile profile) {
-        super(firstName, lastName, inputEmail, inputPassword, profile);
+    public Admin(String firstName, String lastName, String inputEmail, String inputPassword) {
+        super(firstName, lastName, inputEmail, inputPassword, Profile.ADMIN);
     }
 
     /**

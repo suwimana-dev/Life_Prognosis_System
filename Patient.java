@@ -14,9 +14,9 @@ public class Patient extends User {
     /**
      * Constructor to initialize a Patient object.
      */
-    public Patient(String firstName, String lastName, String inputEmail, String inputPassword, Profile profile,
+    public Patient(String firstName, String lastName, String inputEmail, String inputPassword,
                    LocalDate dateBirth, boolean statusHiv, LocalDate dateDiagnosis, boolean statusArt, LocalDate dateArt, String countryISO) {
-        super(firstName, lastName, inputEmail, inputPassword, profile);
+        super(firstName, lastName, inputEmail, inputPassword, Profile.PATIENT);
         this.dateBirth = dateBirth;
         this.statusHiv = statusHiv;
         this.dateDiagnosis = dateDiagnosis;
