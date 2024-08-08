@@ -47,10 +47,6 @@ public class Main {
                 int choice = Integer.parseInt(reader.readLine()); // Get user's choice
 
                 switch (choice) { // Switch based on user's choice
-                    case 0 -> // Admin
-
-
-                        handleAdminMenu(reader); // Call admin menu handler
                     case 1 -> {
                         //Login_Admin
 
@@ -62,7 +58,7 @@ public class Main {
 
                         //String result = runBashScript("user-manager.sh", "login", adminEmail, adminPassword); // Call bash script to login admin
                         
-                        String result = runBashScript("test.sh", adminEmail, adminPassword);
+                        String result = runBashScript("user_login.sh", adminEmail, adminPassword);
 
                         System.out.println("Login was " + result);
 
@@ -135,9 +131,6 @@ public class Main {
                             System.out.println("Patient registered successfully.");
                         }
                     }
-
-                    case 10 -> // Patient
-                        handlePatientMenu(reader); // Call patient menu handler
                     case 3 -> {
                         // Exit
                         System.out.println("Exiting...");
@@ -157,7 +150,6 @@ public class Main {
             // Display Admin menu
             System.out.println("Admin Menu:");
             System.out.println("1. Onboard User");
-            System.out.println("2. Login");
             System.out.println("3. Generate CSV Files");
             System.out.println("4. Exit to Main Menu");
             int choice = Integer.parseInt(reader.readLine()); // Get admin's choice
@@ -172,8 +164,9 @@ public class Main {
                         break;
                     }
                     String uuid = UUID.randomUUID().toString(); // Generate UUID
-                    runBashScript("user-manager.sh", "onboard", email, uuid); // Call bash script to onboard user
+                    runBashScript("test-create-user.sh", email, uuid); // Call bash script to onboard user
                     System.out.println("User onboarded with UUID: " + uuid);
+                    break;
                 }
                 case 2, 3 -> // Login
                     // Generate CSV Files
@@ -203,7 +196,7 @@ public class Main {
     private static void adminActions(BufferedReader reader) throws IOException, InterruptedException {
         while (true) { // Loop to keep admin actions menu running
             System.out.println("Admin Actions Menu:");
-            System.out.println("1. Create Users");
+            System.out.println("1. Create User");
             System.out.println("2. Download Reports");
             System.out.println("3. Download List of Users");
             System.out.println("4. Logout");
@@ -211,9 +204,17 @@ public class Main {
 
             switch (choice) { // Switch based on admin's choice
                 case 1 -> {
-                    // Download Reports
-                    runBashScript("user-manager.sh", "generate-csv"); // Call bash script to generate reports
-                    System.out.println("Reports downloaded.");
+                    // Onboard User
+                    System.out.println("Enter the email of the user to onboard:");
+                    String email = reader.readLine(); // Get user email
+                    if (!isValidEmail(email)) { // Validate email format
+                        System.out.println("Invalid email format. Please try again.");
+                        break;
+                    }
+                    String uuid = UUID.randomUUID().toString(); // Generate UUID
+                    runBashScript("test-create-user.sh", email, uuid); // Call bash script to onboard user
+                    System.out.println("User onboarded with UUID: " + uuid);
+                    break;
                 }
                 case 2 -> {
                     // Download List of Users

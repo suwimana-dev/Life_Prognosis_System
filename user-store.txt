@@ -1,2 +1,4 @@
 123;password123;ADMIN
 345;pass345;PATIENT;2222
+abc@email;6f500af5-df65-43a0-a6d4-fb17000df25e
+jj@email.com;a3b9d021-c8e5-4215-884e-5ba9c5821d6a
