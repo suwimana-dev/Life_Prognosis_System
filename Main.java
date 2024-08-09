@@ -257,11 +257,18 @@ public class Main {
                     break;
                 }
                 case 2 -> {
-                    // Download List of Users
-                    runBashScript("user-manager.sh", "generate-csv"); // Call bash script to generate list of users
-                    System.out.println("User list downloaded.");
+                    System.out.println("Download the analytics reports");
                 }
                 case 3 -> {
+                    // Download List of Users
+                    // String report = runBashScript("generate_csv.sh");
+                    // // runBashScript("user-manager.sh", "generate-csv"); // Call bash script to generate list of users
+                    // System.out.println(report);
+                    String report = runBashScript("generate_csv.sh");
+                    System.out.println(report); // Print the output from the bash script
+                    System.out.println("You can download the user report from the specified location.");
+                }
+                case 4 -> {
                     // Logout
                     return; // Logout and return to admin menu
                 }
@@ -284,22 +291,22 @@ public class Main {
                 case 1, 2 -> // Register
                 {
                     // Login
-                    System.out.println("Enter your email:");
-                    String patientEmail = reader.readLine(); // Get patient email
-                    System.out.println("Enter your password:");
-                    String patientPassword = reader.readLine(); // Get patient password
-                    String result = runBashScript("user-manager.sh", "login", patientEmail, patientPassword); // Call bash script to login patient
-                    if ("success".equals(result)) {
-                        patientActions(reader); // Call patient actions handler if login is successful
-                    } else {
-                        System.out.println("Invalid login credentials."); // Handle invalid login
-                    }
+                    // System.out.println("Enter your email:");
+                    // String patientEmail = reader.readLine(); // Get patient email
+                    // System.out.println("Enter your password:");
+                    // String patientPassword = reader.readLine(); // Get patient password
+                    // String result = runBashScript("user-manager.sh", "login", patientEmail, patientPassword); // Call bash script to login patient
+                    // if ("success".equals(result)) {
+                    //     patientActions(reader); // Call patient actions handler if login is successful
+                    // } else {
+                    //     System.out.println("Invalid login credentials."); // Handle invalid login
+                    // }
                 }
-                case 3 -> {
-                    // Exit
-                    return; // Exit to main menu
-                }
-                default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
+                // case 3 -> {
+                //     // Exit
+                //     return; // Exit to main menu
+                // }
+                // default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
             }
             // Switch based on patient's choice
             // Register
