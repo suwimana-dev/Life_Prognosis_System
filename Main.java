@@ -2,12 +2,15 @@ import java.io.BufferedReader; // Importing BufferedReader to read input from th
 import java.io.Console;
 import java.io.IOException; // Importing InputStreamReader to read input from the user
 import java.io.InputStreamReader; // Importing IOException to handle IO exceptions
-import java.time.LocalDate; // Importing UUID to generate unique IDs
-import java.time.format.DateTimeFormatter; // Importing Matcher for regex operations
-import java.time.format.DateTimeParseException; // Importing Pattern for regex operations
-import java.util.UUID; // Importing LocalDate for date operations
-import java.util.regex.Matcher; // Importing DateTimeFormatter for date formatting
-import java.util.regex.Pattern; // Importing DateTimeParseException for handling date parsing exceptions
+import java.nio.file.Files; // Importing UUID to generate unique IDs
+import java.nio.file.Paths; // Importing Matcher for regex operations
+import java.time.LocalDate; // Importing Pattern for regex operations
+import java.time.format.DateTimeFormatter; // Importing LocalDate for date operations
+import java.time.format.DateTimeParseException; // Importing DateTimeFormatter for date formatting
+import java.util.UUID; // Importing DateTimeParseException for handling date parsing exceptions
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Main {
 
@@ -284,9 +287,26 @@ public class Main {
                     System.out.println("You can download the user report from the specified location.");
                 }
                 case 4 -> {
-                    // Logout
-                    return; // Logout and return to admin menu
+                    try {
+                        // Logout action
+                        System.out.println("Logging out...");
+
+                        // Call the Logout.sh script
+                        String result = runBashScript("Logout.sh");
+
+                        // Display the result of the logout operation
+                        System.out.println(result);
+
+                        // After logout, you can exit the Java program
+                        System.exit(0);
+
+                    } catch (IOException | InterruptedException e) {
+                        // Handle any errors that occur during the script execution
+                        System.err.println("An error occurred during logout:");
+                        e.printStackTrace();
+                    }
                 }
+
                 default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
             }
             // Switch based on admin's choice
@@ -306,18 +326,6 @@ public class Main {
                 case 1, 2 -> // Register
                 {
                     // Login
-<<<<<<< HEAD
-                    // System.out.println("Enter your email:");
-                    // String patientEmail = reader.readLine(); // Get patient email
-                    // System.out.println("Enter your password:");
-                    // String patientPassword = reader.readLine(); // Get patient password
-                    // String result = runBashScript("user-manager.sh", "login", patientEmail, patientPassword); // Call bash script to login patient
-                    // if ("success".equals(result)) {
-                    //     patientActions(reader); // Call patient actions handler if login is successful
-                    // } else {
-                    //     System.out.println("Invalid login credentials."); // Handle invalid login
-                    // }
-=======
                     System.out.println("Enter your email:");
                     String patientEmail = reader.readLine(); // Get patient email
 
@@ -331,7 +339,6 @@ public class Main {
                     } else {
                         System.out.println("Invalid login credentials."); // Handle invalid login
                     }
->>>>>>> 205103c (new changes)
                 }
                 // case 3 -> {
                 //     // Exit
@@ -404,34 +411,134 @@ public class Main {
             int choice = Integer.parseInt(reader.readLine()); // Get patient's choice
 
             switch (choice) { // Switch based on patient's choice
-                case 1 -> {
-                    // Update Profile
-                    System.out.println("Updating profile...");
-                    // Call bash script to update profile
-                    System.out.println("Profile updated.");
-                }
-                case 2 -> {
-                    // View Profile
-                    System.out.println("Viewing profile...");
-                    // Call bash script to view profile
-                    System.out.println("Profile viewed.");
-                }
+   case 1 -> {
+    try {
+        // Read the logged-in user's email from session.txt
+        BufferedReader emailReader = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get("session.txt"))));
+        String email = emailReader.readLine().trim();
+        emailReader.close();
+
+        if (email.isEmpty()) {
+            System.out.println("No user is currently logged in.");
+            break;
+        }
+
+        System.out.println("Updating profile for: " + email);
+        System.out.println("Leave blank to keep current values.");
+
+        // Run the Bash script to get current user profile details
+        String currentProfile = runBashScript("UpdateProfile.sh", "get", email);
+
+        if (currentProfile.startsWith("Error")) {
+            System.out.println(currentProfile);
+            break;
+        }
+
+        // Display current profile details
+        System.out.println("Current profile details:");
+        System.out.println(currentProfile);
+        // Collect new details from the user
+        System.out.print("New Email (leave blank to keep current): ");
+        String newEmail = reader.readLine().trim();
+
+        System.out.print("Enter Old Password (or leave blank if not changing): ");
+        String oldPassword = reader.readLine().trim();
+
+        System.out.print("New First Name (leave blank to keep current): ");
+        String newFirstName = reader.readLine().trim();
+
+        System.out.print("New Last Name (leave blank to keep current): ");
+        String newLastName = reader.readLine().trim();
+
+        System.out.print("New Date of Birth (YYYY-MM-DD, leave blank to keep current): ");
+        String newDateBirth = reader.readLine().trim();
+
+        System.out.print("New HIV Status (true/false, leave blank to keep current): ");
+        String newStatusHiv = reader.readLine().trim();
+
+        System.out.print("New Date of Diagnosis (YYYY-MM-DD, leave blank to keep current): ");
+        String newDateDiagnosis = reader.readLine().trim();
+
+        System.out.print("New ART Status (true/false, leave blank to keep current): ");
+        String newStatusArt = reader.readLine().trim();
+
+        System.out.print("New Date of ART (YYYY-MM-DD, leave blank to keep current): ");
+        String newDateArt = reader.readLine().trim();
+
+        System.out.print("New Country ISO Code (leave blank to keep current): ");
+        String newCountryISO = reader.readLine().trim();
+
+        // Confirm changes with the user
+        System.out.println("\nConfirm changes:");
+        System.out.println("Email: " + newEmail);
+        System.out.println("First Name: " + newFirstName);
+        System.out.println("Last Name: " + newLastName);
+        System.out.println("Date of Birth: " + newDateBirth);
+        System.out.println("HIV Status: " + newStatusHiv);
+        System.out.println("Date of Diagnosis: " + newDateDiagnosis);
+        System.out.println("ART Status: " + newStatusArt);
+        System.out.println("Date of ART: " + newDateArt);
+        System.out.println("Country ISO: " + newCountryISO);
+        System.out.print("Are you sure you want to apply these changes? (yes/no): ");
+        String confirmation = reader.readLine().trim();
+
+        if (!confirmation.equalsIgnoreCase("yes")) {
+            System.out.println("Profile update cancelled.");
+            break;
+        }
+
+        // Call the Bash script to update the profile
+        String updateResult = runBashScript("UpdateProfile.sh", "update", newEmail, oldPassword, newFirstName, newLastName, newDateBirth, newStatusHiv, newDateDiagnosis, newStatusArt, newDateArt, newCountryISO);
+
+        // Display the result of the update operation
+        System.out.println(updateResult);
+
+    } catch (IOException e) {
+        System.err.println("An error occurred while updating the profile:");
+        e.printStackTrace();
+    }
+}
+
+             case 2 -> {
+                    try {
+                        // Call the bash script to display the user's profile
+                        String output = runBashScript("ViewProfile.sh");
+
+                        // Print the output returned by the bash script
+                        System.out.println(output);
+                    } 
+                    catch (IOException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    }
                 case 3 -> {
-                    // Compute Lifespan (to be implemented later)
-                    System.out.println("Computing lifespan...");
-                    // Call bash script to compute lifespan
-                    System.out.println("Lifespan computed.");
-                }
-                case 4 -> {
-                    // Download iCalendar (to be implemented later)
+                   // Download iCalendar (to be implemented later)
                     System.out.println("Downloading iCalendar...");
                     // Call bash script to download iCalendar
                     System.out.println("iCalendar downloaded.");
                 }
-                case 5 -> {
-                    // Logout
-                    return; // Logout and return to patient menu
+                case 4 -> {
+                     try {
+                        // Logout action
+                        System.out.println("Logging out...");
+
+                        // Call the Logout.sh script
+                        String result = runBashScript("Logout.sh");
+
+                        // Display the result of the logout operation
+                        System.out.println(result);
+
+                        // After logout, you can exit the Java program
+                        System.exit(0);
+
+                    } catch (IOException | InterruptedException e) {
+                        // Handle any errors that occur during the script execution
+                        System.err.println("An error occurred during logout:");
+                        e.printStackTrace();
+                    }
                 }
+                // Add this case to your switch or if-else structure where you handle user actions
+
                 default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
             }
             // Switch based on patient's choice
