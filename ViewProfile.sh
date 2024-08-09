@@ -7,7 +7,7 @@ email=$(head -n 1 session.txt)
 user_info=$(grep "$email" user-store.txt | tr -d '\r\n')  # Ensure no newlines
 
 # Print raw user_info for debugging
-echo "Raw user info: $user_info"
+//echo "Raw user info: $user_info"
 
 # Check if user info was found
 if [ -z "$user_info" ]; then

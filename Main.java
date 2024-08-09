@@ -9,6 +9,7 @@ import java.util.UUID; // Importing LocalDate for date operations
 import java.util.regex.Matcher; // Importing DateTimeFormatter for date formatting
 import java.util.regex.Pattern; // Importing DateTimeParseException for handling date parsing exceptions
 
+
 public class Main {
 
     // Method to run the bash script with specified arguments and return the output as a String
@@ -427,29 +428,7 @@ public class Main {
             int choice = Integer.parseInt(reader.readLine()); // Get patient's choice
 
             switch (choice) { // Switch based on patient's choice
-             case 1 -> {
-                    try {
-                        // Update Profile
-                        System.out.println("Updating profile...");
-
-                        // Call the UpdateProfile.sh script and capture the output
-                        String result = runBashScript("UpdateProfile.sh");
-
-                        // Print the result of the script execution
-                        System.out.println("UpdateProfile.sh Output:");
-                        System.out.println(result);
-
-                        // Pause and wait for user input to continue after the update
-                        System.out.println("Press Enter to return to the menu...");
-                        reader.readLine();
-
-                    } catch (IOException | InterruptedException e) {
-                        // Handle exceptions
-                        System.err.println("An error occurred while executing the script:");
-                        e.printStackTrace();
-                    }
-                }
-
+   
              case 2 -> {
                     try {
                         // Call the bash script to display the user's profile
