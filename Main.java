@@ -287,12 +287,6 @@ public class Main {
                     System.out.println("You can download the user report from the specified location.");
                 }
                 case 4 -> {
-                    // Logout
-                    return; // Logout and return to admin menu
-                }
-                // Add this case to your switch or if-else structure where you handle user actions
-
-                case 4 -> {
                     try {
                         // Logout action
                         System.out.println("Logging out...");
@@ -332,18 +326,6 @@ public class Main {
                 case 1, 2 -> // Register
                 {
                     // Login
-<<<<<<< HEAD
-                    // System.out.println("Enter your email:");
-                    // String patientEmail = reader.readLine(); // Get patient email
-                    // System.out.println("Enter your password:");
-                    // String patientPassword = reader.readLine(); // Get patient password
-                    // String result = runBashScript("user-manager.sh", "login", patientEmail, patientPassword); // Call bash script to login patient
-                    // if ("success".equals(result)) {
-                    //     patientActions(reader); // Call patient actions handler if login is successful
-                    // } else {
-                    //     System.out.println("Invalid login credentials."); // Handle invalid login
-                    // }
-=======
                     System.out.println("Enter your email:");
                     String patientEmail = reader.readLine(); // Get patient email
 
@@ -357,7 +339,6 @@ public class Main {
                     } else {
                         System.out.println("Invalid login credentials."); // Handle invalid login
                     }
->>>>>>> 205103c (new changes)
                 }
                 // case 3 -> {
                 //     // Exit
