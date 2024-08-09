@@ -407,13 +407,27 @@ public class Main {
                 case 1 -> {
                     // Update Profile
                     System.out.println("Updating profile...");
+                    try {
+                    // Call the UpdateProfile.sh script
+                    // Assume that `UpdateProfile.sh` takes no arguments; adjust if necessary
+                    String result = runBashScript("UpdateProfile.sh");
+
+                    // Print the result of the script execution
+                     System.out.println("UpdateProfile.sh Output:");
+                    System.out.println(result);
+
+                } catch (IOException | InterruptedException e) {
+                    // Handle exceptions
+                    System.err.println("An error occurred while executing the script:");
+                    e.printStackTrace();
+        }
                     // Call bash script to update profile
                     System.out.println("Profile updated.");
                 }
                 case 2 -> {
                     try {
                         // Call the bash script to display the user's profile
-                        String output = runBashScript("ViewProfile.sh", "ggg@1213");
+                        String output = runBashScript("ViewProfile.sh", "345");
 
                         // Print the output returned by the bash script
                         System.out.println(output);

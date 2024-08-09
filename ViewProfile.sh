@@ -1,11 +1,11 @@
 #!/bin/bash
-
 # Read user info from the file
-email=$1  # First argument: user's email
+# read first line from session file
+email=$(head -n 1 session.txt)
 
 # Find user info in user-store.txt
 user_info=$(grep "$email" user-store.txt)  # Search for user info by email
-
+echo "$usert_info"
 if [ -z "$user_info" ]; then  # Check if user info is empty
     echo "User not found."
 else
