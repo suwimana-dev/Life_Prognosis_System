@@ -20,6 +20,14 @@ verify_uuid() {
     fi
 }
 
+#Function to harsh password
+# harsh_password() {
+#     password=$1
+#     echo $password | openssl dgst -sha256 | awk '{print $2}'
+#     #password=$store_password 
+#     #echo $password
+# }
+
 # Function to register a patient
 register_patient() {
     firstName=$1  # First argument: patient's first name
@@ -33,8 +41,11 @@ register_patient() {
     statusArt=$9  # Ninth argument: ART status (true/false)
     dateArt=${10}  # Tenth argument: date of ART initiation
     countryISO=${11}  # Eleventh argument: country ISO code
+
+    # encryp_password=`echo -n "$password" | openssl -dgst -sha256
     # Append patient details to user-store.txt file, separated by semicolons
-    echo "$email;$password;PATIENT;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt$countryISO" >> user-store.txt
+    echo "$email;$password;PATIENT;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt;$countryISO" >> user-store.txt
+    #sed 's/.*/$email.*/&(/echo ";/$password;PATIENT;/$firstName;/$lastName;/$dateBirth;/$statusHiv;/$dateDiagnosis;/$statusArt;/$dateArt;/$countryISO)"/' user-store.txt
     echo "Patient registered successfully."  # Print confirmation message
 }
 

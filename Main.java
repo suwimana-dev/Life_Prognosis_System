@@ -1,4 +1,5 @@
 import java.io.BufferedReader; // Importing BufferedReader to read input from the user
+import java.io.Console;
 import java.io.IOException; // Importing InputStreamReader to read input from the user
 import java.io.InputStreamReader; // Importing IOException to handle IO exceptions
 import java.time.LocalDate; // Importing UUID to generate unique IDs
@@ -52,9 +53,16 @@ public class Main {
 
                         System.out.println("Enter your email:");
                         String adminEmail = reader.readLine(); // Get admin email
-
-                        System.out.println("Enter your password:");
-                        String adminPassword = reader.readLine(); // Get admin password
+                        Console console = System.console();
+                        if(console==null){
+                            return;
+                        }
+                        char[] passwordArray = console.readPassword("Enter your password:");
+                        String password = new String(passwordArray);
+                        String adminPassword = password;
+                        
+                        //System.out.println("Enter your password:");
+                        //String adminPassword = reader.readLine(); // Get admin password
 
                         //String result = runBashScript("user-manager.sh", "login", adminEmail, adminPassword); // Call bash script to login admin
                         
@@ -162,8 +170,15 @@ public class Main {
 
                             System.out.println("Country ISO Code:");
                             String countryISO = reader.readLine(); // Get country ISO code
-                            System.out.println("Enter Password:");
-                            String password = reader.readLine(); // Get password
+                            Console console = System.console();
+                            if(console==null){
+                                return;
+                            }
+                            char[] passwordArray = console.readPassword("Enter password:");
+                            String apassword = new String(passwordArray);
+                            String password = apassword;
+                            //System.out.println("Enter Password:");
+                            //String password = reader.readLine(); // Get password
 
                             // Call bash script to register patient
                             runBashScript("user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
@@ -291,6 +306,7 @@ public class Main {
                 case 1, 2 -> // Register
                 {
                     // Login
+<<<<<<< HEAD
                     // System.out.println("Enter your email:");
                     // String patientEmail = reader.readLine(); // Get patient email
                     // System.out.println("Enter your password:");
@@ -301,6 +317,21 @@ public class Main {
                     // } else {
                     //     System.out.println("Invalid login credentials."); // Handle invalid login
                     // }
+=======
+                    System.out.println("Enter your email:");
+                    String patientEmail = reader.readLine(); // Get patient email
+
+
+                    System.out.println("Enter your password:");
+                    Console console = System.console();
+                    String patientPassword = reader.readLine(); // Get patient password
+                    String result = runBashScript("user-manager.sh", "login", patientEmail, patientPassword); // Call bash script to login patient
+                    if ("success".equals(result)) {
+                        patientActions(reader); // Call patient actions handler if login is successful
+                    } else {
+                        System.out.println("Invalid login credentials."); // Handle invalid login
+                    }
+>>>>>>> 205103c (new changes)
                 }
                 // case 3 -> {
                 //     // Exit

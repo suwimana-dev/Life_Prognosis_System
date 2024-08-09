@@ -48,6 +48,13 @@
 email=$1
 password=$2
 
+# harsh_password() {
+#     password=$1
+#     echo $password | openssl dgst -sha256 | awk '{print $2}'
+#     #password=$store_password 
+#     #echo $password
+# }
+
 # Search for the user record in user-store.txt
 user_record=$(grep "^$email;$password;" user-store.txt)
 
