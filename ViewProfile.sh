@@ -1,34 +1,36 @@
 #!/bin/bash
-# Read user info from the file
-# read first line from session file
+
+# Read the email from the session file (this should be the first line)
 email=$(head -n 1 session.txt)
 
 # Find user info in user-store.txt
-user_info=$(grep "$email" user-store.txt)  # Search for user info by email
-echo "$usert_info"
-if [ -z "$user_info" ]; then  # Check if user info is empty
+user_info=$(grep "$email" user-store.txt | tr -d '\r\n')  # Ensure no newlines
+
+# Print raw user_info for debugging
+echo "Raw user info: $user_info"
+
+# Check if user info was found
+if [ -z "$user_info" ]; then
     echo "User not found."
 else
-    # Extract user info
-    IFS=';' read -r -a user_array <<< "$user_info"  # Split user info into array
-    first_name=${user_array[0]}  # Extract first name
-    last_name=${user_array[1]}  # Extract last name
-    uuid=${user_array[3]}  # Extract UUID
-    date_birth=${user_array[6]}  # Extract date of birth
-    status_hiv=${user_array[7]}  # Extract HIV status
-    date_diagnosis=${user_array[8]}  # Extract date of diagnosis
-    status_art=${user_array[9]}  # Extract ART status
-    date_art=${user_array[10]}  # Extract date of ART
-    country_iso=${user_array[11]}  # Extract country ISO
+    # Split user info into an array using ';' as the delimiter
+    IFS=';' read -r -a user_array <<< "$user_info"
 
-    # Output user info
-    echo "First Name: $first_name"
-    echo "Last Name: $last_name"
-    echo "UUID: $uuid"
-    echo "Date of Birth: $date_birth"
-    echo "HIV Status: $status_hiv"
-    echo "Date of Diagnosis: $date_diagnosis"
-    echo "ART Status: $status_art"
-    echo "Date of ART: $date_art"
-    echo "Country ISO: $country_iso"
+    # Debugging: Print the array contents
+    echo "Array contents:"
+    for i in "${!user_array[@]}"; do
+        echo "user_array[$i]: ${user_array[$i]}"
+    done
+
+    # Output the user info based on the correct order of fields in the text file
+    echo "Email: ${user_array[0]}"            # Email
+    echo "First Name: ${user_array[3]}"       # First Name
+    echo "Last Name: ${user_array[4]}"        # Last Name
+    echo "UUID: ${user_array[5]}"             # UUID
+    echo "Date of Birth: ${user_array[6]}"    # Date of Birth
+    echo "HIV Status: ${user_array[7]}"       # HIV Status
+    echo "Date of Diagnosis: ${user_array[8]}" # Date of Diagnosis
+    echo "ART Status: ${user_array[9]}"       # ART Status
+    echo "Date of ART: ${user_array[10]}"     # Date of ART
+    echo "Country ISO: ${user_array[11]}"     # Country ISO
 fi

@@ -287,6 +287,29 @@ public class Main {
                     // Logout
                     return; // Logout and return to admin menu
                 }
+                // Add this case to your switch or if-else structure where you handle user actions
+
+                case 4 -> {
+                    try {
+                        // Logout action
+                        System.out.println("Logging out...");
+
+                        // Call the Logout.sh script
+                        String result = runBashScript("Logout.sh");
+
+                        // Display the result of the logout operation
+                        System.out.println(result);
+
+                        // After logout, you can exit the Java program
+                        System.exit(0);
+
+                    } catch (IOException | InterruptedException e) {
+                        // Handle any errors that occur during the script execution
+                        System.err.println("An error occurred during logout:");
+                        e.printStackTrace();
+                    }
+                }
+
                 default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
             }
             // Switch based on admin's choice
@@ -404,32 +427,33 @@ public class Main {
             int choice = Integer.parseInt(reader.readLine()); // Get patient's choice
 
             switch (choice) { // Switch based on patient's choice
-                case 1 -> {
-                   try {
-                
-                    // Update Profile
-                    System.out.println("Updating profile...");
-                    
-                    // Call the UpdateProfile.sh script
-                    // Assume that `UpdateProfile.sh` takes no arguments; adjust if necessary
-                    String result = runBashScript("UpdateProfile.sh");
+             case 1 -> {
+                    try {
+                        // Update Profile
+                        System.out.println("Updating profile...");
 
-                    // Print the result of the script execution
-                     System.out.println("UpdateProfile.sh Output:");
-                    System.out.println(result);
+                        // Call the UpdateProfile.sh script and capture the output
+                        String result = runBashScript("UpdateProfile.sh");
 
-                } catch (IOException | InterruptedException e) {
-                    // Handle exceptions
-                    System.err.println("An error occurred while executing the script:");
-                    e.printStackTrace();
-        }
-                    // Call bash script to update profile
-                    System.out.println("Profile updated.");
+                        // Print the result of the script execution
+                        System.out.println("UpdateProfile.sh Output:");
+                        System.out.println(result);
+
+                        // Pause and wait for user input to continue after the update
+                        System.out.println("Press Enter to return to the menu...");
+                        reader.readLine();
+
+                    } catch (IOException | InterruptedException e) {
+                        // Handle exceptions
+                        System.err.println("An error occurred while executing the script:");
+                        e.printStackTrace();
+                    }
                 }
-                case 2 -> {
+
+             case 2 -> {
                     try {
                         // Call the bash script to display the user's profile
-                        String output = runBashScript("ViewProfile.sh", "345");
+                        String output = runBashScript("ViewProfile.sh");
 
                         // Print the output returned by the bash script
                         System.out.println(output);
@@ -439,21 +463,33 @@ public class Main {
                     }
                     }
                 case 3 -> {
-                    // Compute Lifespan (to be implemented later)
-                    System.out.println("Computing lifespan...");
-                    // Call bash script to compute lifespan
-                    System.out.println("Lifespan computed.");
-                }
-                case 4 -> {
-                    // Download iCalendar (to be implemented later)
+                   // Download iCalendar (to be implemented later)
                     System.out.println("Downloading iCalendar...");
                     // Call bash script to download iCalendar
                     System.out.println("iCalendar downloaded.");
                 }
-                case 5 -> {
-                    // Logout
-                    return; // Logout and return to patient menu
+                case 4 -> {
+                     try {
+                        // Logout action
+                        System.out.println("Logging out...");
+
+                        // Call the Logout.sh script
+                        String result = runBashScript("Logout.sh");
+
+                        // Display the result of the logout operation
+                        System.out.println(result);
+
+                        // After logout, you can exit the Java program
+                        System.exit(0);
+
+                    } catch (IOException | InterruptedException e) {
+                        // Handle any errors that occur during the script execution
+                        System.err.println("An error occurred during logout:");
+                        e.printStackTrace();
+                    }
                 }
+                // Add this case to your switch or if-else structure where you handle user actions
+
                 default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
             }
             // Switch based on patient's choice

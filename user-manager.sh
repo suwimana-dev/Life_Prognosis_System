@@ -45,7 +45,6 @@ register_patient() {
     # encryp_password=`echo -n "$password" | openssl -dgst -sha256
     # Append patient details to user-store.txt file, separated by semicolons
     echo "$email;$password;PATIENT;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt;$countryISO" >> user-store.txt
-    #sed 's/.*/$email.*/&(/echo ";/$password;PATIENT;/$firstName;/$lastName;/$dateBirth;/$statusHiv;/$dateDiagnosis;/$statusArt;/$dateArt;/$countryISO)"/' user-store.txt
     echo "Patient registered successfully."  # Print confirmation message
 }
 
