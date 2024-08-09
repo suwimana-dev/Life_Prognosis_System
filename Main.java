@@ -2,12 +2,14 @@ import java.io.BufferedReader; // Importing BufferedReader to read input from th
 import java.io.Console;
 import java.io.IOException; // Importing InputStreamReader to read input from the user
 import java.io.InputStreamReader; // Importing IOException to handle IO exceptions
-import java.time.LocalDate; // Importing UUID to generate unique IDs
-import java.time.format.DateTimeFormatter; // Importing Matcher for regex operations
-import java.time.format.DateTimeParseException; // Importing Pattern for regex operations
-import java.util.UUID; // Importing LocalDate for date operations
-import java.util.regex.Matcher; // Importing DateTimeFormatter for date formatting
-import java.util.regex.Pattern; // Importing DateTimeParseException for handling date parsing exceptions
+import java.nio.file.Files; // Importing UUID to generate unique IDs
+import java.nio.file.Paths; // Importing Matcher for regex operations
+import java.time.LocalDate; // Importing Pattern for regex operations
+import java.time.format.DateTimeFormatter; // Importing LocalDate for date operations
+import java.time.format.DateTimeParseException; // Importing DateTimeFormatter for date formatting
+import java.util.UUID; // Importing DateTimeParseException for handling date parsing exceptions
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Main {
@@ -428,7 +430,94 @@ public class Main {
             int choice = Integer.parseInt(reader.readLine()); // Get patient's choice
 
             switch (choice) { // Switch based on patient's choice
-   
+   case 1 -> {
+    try {
+        // Read the logged-in user's email from session.txt
+        BufferedReader emailReader = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get("session.txt"))));
+        String email = emailReader.readLine().trim();
+        emailReader.close();
+
+        if (email.isEmpty()) {
+            System.out.println("No user is currently logged in.");
+            break;
+        }
+
+        System.out.println("Updating profile for: " + email);
+        System.out.println("Leave blank to keep current values.");
+
+        // Run the Bash script to get current user profile details
+        String currentProfile = runBashScript("UpdateProfile.sh", "get", email);
+
+        if (currentProfile.startsWith("Error")) {
+            System.out.println(currentProfile);
+            break;
+        }
+
+        // Display current profile details
+        System.out.println("Current profile details:");
+        System.out.println(currentProfile);
+        // Collect new details from the user
+        System.out.print("New Email (leave blank to keep current): ");
+        String newEmail = reader.readLine().trim();
+
+        System.out.print("Enter Old Password (or leave blank if not changing): ");
+        String oldPassword = reader.readLine().trim();
+
+        System.out.print("New First Name (leave blank to keep current): ");
+        String newFirstName = reader.readLine().trim();
+
+        System.out.print("New Last Name (leave blank to keep current): ");
+        String newLastName = reader.readLine().trim();
+
+        System.out.print("New Date of Birth (YYYY-MM-DD, leave blank to keep current): ");
+        String newDateBirth = reader.readLine().trim();
+
+        System.out.print("New HIV Status (true/false, leave blank to keep current): ");
+        String newStatusHiv = reader.readLine().trim();
+
+        System.out.print("New Date of Diagnosis (YYYY-MM-DD, leave blank to keep current): ");
+        String newDateDiagnosis = reader.readLine().trim();
+
+        System.out.print("New ART Status (true/false, leave blank to keep current): ");
+        String newStatusArt = reader.readLine().trim();
+
+        System.out.print("New Date of ART (YYYY-MM-DD, leave blank to keep current): ");
+        String newDateArt = reader.readLine().trim();
+
+        System.out.print("New Country ISO Code (leave blank to keep current): ");
+        String newCountryISO = reader.readLine().trim();
+
+        // Confirm changes with the user
+        System.out.println("\nConfirm changes:");
+        System.out.println("Email: " + newEmail);
+        System.out.println("First Name: " + newFirstName);
+        System.out.println("Last Name: " + newLastName);
+        System.out.println("Date of Birth: " + newDateBirth);
+        System.out.println("HIV Status: " + newStatusHiv);
+        System.out.println("Date of Diagnosis: " + newDateDiagnosis);
+        System.out.println("ART Status: " + newStatusArt);
+        System.out.println("Date of ART: " + newDateArt);
+        System.out.println("Country ISO: " + newCountryISO);
+        System.out.print("Are you sure you want to apply these changes? (yes/no): ");
+        String confirmation = reader.readLine().trim();
+
+        if (!confirmation.equalsIgnoreCase("yes")) {
+            System.out.println("Profile update cancelled.");
+            break;
+        }
+
+        // Call the Bash script to update the profile
+        String updateResult = runBashScript("UpdateProfile.sh", "update", newEmail, oldPassword, newFirstName, newLastName, newDateBirth, newStatusHiv, newDateDiagnosis, newStatusArt, newDateArt, newCountryISO);
+
+        // Display the result of the update operation
+        System.out.println(updateResult);
+
+    } catch (IOException e) {
+        System.err.println("An error occurred while updating the profile:");
+        e.printStackTrace();
+    }
+}
+
              case 2 -> {
                     try {
                         // Call the bash script to display the user's profile
