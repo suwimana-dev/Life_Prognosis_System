@@ -17,3 +17,9 @@ suzette@gmail.com;d381e012-8bfe-4c86-919d-30c94d13f6c1
 suzette@gmail.com;12345;PATIENT;Suzette;Genius;d381e012-8bfe-4c86-919d-30c94d13f6c1;1922-02-12;false;null;null;null;250
 zmail@mail.com;98566c32-4345-4a4f-b0c0-f302dc87b85a
 zmail@mail.com;goodluck;PATIENT;Luck;Good;98566c32-4345-4a4f-b0c0-f302dc87b85a;1992-06-02;true;1995-08-09;true;2000-05-06;250
+uwimana@email.com;dac35839-34fe-47d2-b1c3-d6dff2f1f145
+silver@email.com;90397dc9-daf1-4ece-a8ea-cb458017132f
+success@email.com;30a73e43-6696-438c-9993-b018e81fc693
+
+well@email.com;71ac903c-f10d-46f5-a346-62ad96f4ce21
+well@email.com;123456;PATIENT;well;well;71ac903c-f10d-46f5-a346-62ad96f4ce21;2006-02-03;true;2008-04-04;true;2009-09-09;250

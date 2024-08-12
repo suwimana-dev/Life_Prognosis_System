@@ -306,7 +306,6 @@ public class Main {
                 case 1, 2 -> // Register
                 {
                     // Login
-<<<<<<< HEAD
                     // System.out.println("Enter your email:");
                     // String patientEmail = reader.readLine(); // Get patient email
                     // System.out.println("Enter your password:");
@@ -317,7 +316,7 @@ public class Main {
                     // } else {
                     //     System.out.println("Invalid login credentials."); // Handle invalid login
                     // }
-=======
+
                     System.out.println("Enter your email:");
                     String patientEmail = reader.readLine(); // Get patient email
 
@@ -331,7 +330,7 @@ public class Main {
                     } else {
                         System.out.println("Invalid login credentials."); // Handle invalid login
                     }
->>>>>>> 205103c (new changes)
+
                 }
                 // case 3 -> {
                 //     // Exit
