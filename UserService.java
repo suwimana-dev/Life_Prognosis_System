@@ -3,36 +3,8 @@ import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * Abstract User class to define common attributes and methods for all users.
- */
-
-public abstract class User {
-    // Define new data type Profile for user's role
-    public enum Profile {
-        ADMIN, PATIENT
-    }
-    public String firstName;
-    public String lastName;
-    public String inputEmail;
-    public String inputPassword;
-    public Profile role;
-    
-    /**
-     * Constructor to initialize a User object.
-     */
-    public User(String firstName, String lastName, String inputEmail, String inputPassword, Profile role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.inputEmail = inputEmail;
-        this.inputPassword = inputPassword;
-        this.role = role;
-    }
-
-    public void displayMenu (){
-        
-    }
-    
+public class UserService {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
 
     public String login(){
          
@@ -89,9 +61,5 @@ public abstract class User {
         return output.toString().trim();
     }
     
-
-    /**
-     * Abstract method to be implemented by subclasses for logout functionality.
-     */
-    public abstract void logout();
+    
 }
