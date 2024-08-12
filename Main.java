@@ -306,24 +306,12 @@ public class Main {
                 case 1, 2 -> // Register
                 {
                     // Login
-<<<<<<< HEAD
-                    // System.out.println("Enter your email:");
-                    // String patientEmail = reader.readLine(); // Get patient email
-                    // System.out.println("Enter your password:");
-                    // String patientPassword = reader.readLine(); // Get patient password
-                    // String result = runBashScript("user-manager.sh", "login", patientEmail, patientPassword); // Call bash script to login patient
-                    // if ("success".equals(result)) {
-                    //     patientActions(reader); // Call patient actions handler if login is successful
-                    // } else {
-                    //     System.out.println("Invalid login credentials."); // Handle invalid login
-                    // }
-=======
                     System.out.println("Enter your email:");
                     String patientEmail = reader.readLine(); // Get patient email
 
 
                     System.out.println("Enter your password:");
-                    Console console = System.console();
+                    //Console console = System.console();
                     String patientPassword = reader.readLine(); // Get patient password
                     String result = runBashScript("user-manager.sh", "login", patientEmail, patientPassword); // Call bash script to login patient
                     if ("success".equals(result)) {
@@ -331,7 +319,6 @@ public class Main {
                     } else {
                         System.out.println("Invalid login credentials."); // Handle invalid login
                     }
->>>>>>> 205103c (new changes)
                 }
                 // case 3 -> {
                 //     // Exit
@@ -399,8 +386,9 @@ public class Main {
             System.out.println("Patient Actions Menu:");
             System.out.println("1. Update Profile");
             System.out.println("2. View Profile");
-            System.out.println("3. Download iCalendar");
-            System.out.println("4. Logout");
+            System.out.println("3. Calculate Lifespan");
+            System.out.println("4: Download iCalendar");
+            System.out.println("5. Logout");
             int choice = Integer.parseInt(reader.readLine()); // Get patient's choice
 
             switch (choice) { // Switch based on patient's choice
@@ -420,7 +408,12 @@ public class Main {
                     // Compute Lifespan (to be implemented later)
                     System.out.println("Computing lifespan...");
                     // Call bash script to compute lifespan
-                    System.out.println("Lifespan computed.");
+                    System.out.println("Enter your email:");
+                    String checkmail = reader.readLine(); // Get patient email
+                    // System.out.println("Enter your password:");
+                    // String patientPassword = reader.readLine(); // Get patient password
+                    String lsp = runBashScript("lifespancompute.sh", checkmail);
+                    System.out.println("Lifespan computation result: "+lsp);
                 }
                 case 4 -> {
                     // Download iCalendar (to be implemented later)
