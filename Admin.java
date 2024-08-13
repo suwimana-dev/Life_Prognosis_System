@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.UUID;
 
@@ -6,9 +7,13 @@ import java.util.UUID;
  * Admin class extends User and adds admin-specific methods.
  */
 public class Admin extends User {
-    public Admin(String inputEmail, String inputPassword) {
-        super(inputEmail, inputPassword, Profile.ADMIN);
+    public Admin(String inputEmail) {
+        super(inputEmail, "", "", "", Profile.ADMIN);
     }
+
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
+
+    UserService userService = new UserService();
     
     @Override
     public void displayMenu() {
@@ -25,29 +30,21 @@ public class Admin extends User {
     
             switch (choice) { // Switch based on admin's choice
                 case 1 -> {
-                    // Onboard User
-                    System.out.println("Enter the email of the user to onboard:");
-                    String email = reader.readLine(); // Get user email
-                    if (!isValidEmail(email)) { // Validate email format
-                        System.out.println("Invalid email format. Please try again.");
-                        break;
+                    try {
+                        createUser();
+                    } catch (IOException ex) {
+                        } catch (InterruptedException ex) {
+                            }
                     }
-                    String uuid = UUID.randomUUID().toString(); // Generate UUID
-                    runBashScript("test-create-user.sh", email, uuid); // Call bash script to onboard user
-                    System.out.println("User onboarded with UUID: " + uuid);
-                    break;
-                }
                 case 2 -> {
                     System.out.println("Download the analytics reports");
                 }
                 case 3 -> {
-                    // Download List of Users
-                    // String report = runBashScript("generate_csv.sh");
-                    // // runBashScript("user-manager.sh", "generate-csv"); // Call bash script to generate list of users
-                    // System.out.println(report);
-                    String report = runBashScript("generate_csv.sh");
-                    System.out.println(report); // Print the output from the bash script
-                    System.out.println("You can download the user report from the specified location.");
+                try {
+                    this.downloadListOfUsers();
+                } catch (IOException ex) {
+                } catch (InterruptedException ex) {
+                }
                 }
                 case 4 -> {
                     // Logout
@@ -58,85 +55,24 @@ public class Admin extends User {
             // Switch based on admin's choice
                     }
     }
-    
-    
-    public void createUser() {
-       // Onboard User
-       System.out.println("Enter the email of the user to onboard:");
-       String email = reader.readLine(); // Get user email
-       if (!isValidEmail(email)) { // Validate email format
-           System.out.println("Invalid email format. Please try again.");
-           break;
-       }
-       String uuid = UUID.randomUUID().toString(); // Generate UUID
-       runBashScript("test-create-user.sh", email, uuid); // Call bash script to onboard user
-       System.out.println("User onboarded with UUID: " + uuid);
-       break;
-   
-    }
-    /**
-     * Method to download reports.
-     */
-    public void downloadReports() {
-        // Implement report download logic here
-    }
 
-    /**
-     * Method to download list of users.
-     */
-    public void downloadListOfUsers() {
-        // Implement list of users download logic here
-            String report = runBashScript("generate_csv.sh");
-                System.out.println(report); // Print the output from the bash script
-                System.out.println("You can download the user report from the specified location.");
-    }
-
-    @Override
-    public void logout() {
-        // Implement logout logic for Admin
-    }
-}
-private void AdminMenu(BufferedReader reader) {
-    while (true) { // Loop to keep admin actions menu running
-        System.out.println("Admin Actions Menu:");
-        System.out.println("1. Create User");
-        System.out.println("2. Download Reports");
-        System.out.println("3. Download List of Users");
-        System.out.println("4. Logout");
-        int choice = Integer.parseInt(reader.readLine()); // Get admin's choice
-
-        switch (choice) { // Switch based on admin's choice
-            case 1 -> {
-                // Onboard User
-                System.out.println("Enter the email of the user to onboard:");
-                String email = reader.readLine(); // Get user email
-                if (!isValidEmail(email)) { // Validate email format
-                    System.out.println("Invalid email format. Please try again.");
-                    break;
-                }
-                String uuid = UUID.randomUUID().toString(); // Generate UUID
-                runBashScript("test-create-user.sh", email, uuid); // Call bash script to onboard user
-                System.out.println("User onboarded with UUID: " + uuid);
-                break;
-            }
-            case 2 -> {
-                System.out.println("Download the analytics reports");
-            }
-            case 3 -> {
-                // Download List of Users
-                // String report = runBashScript("generate_csv.sh");
-                // // runBashScript("user-manager.sh", "generate-csv"); // Call bash script to generate list of users
-                // System.out.println(report);
-                String report = runBashScript("generate_csv.sh");
-                System.out.println(report); // Print the output from the bash script
-                System.out.println("You can download the user report from the specified location.");
-            }
-            case 4 -> {
-                // Logout
-                return; // Logout and return to admin menu
-            }
-            default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
+    public void createUser() throws IOException, InterruptedException {
+        // Onboard User
+        System.out.println("Enter the email of the user to onboard:");
+        String email = reader.readLine(); // Get user email
+        if (!userService.isValidEmail(email)) { // Validate email format
+            System.out.println("Invalid email format. Please try again.");
+            return;
         }
-        // Switch based on admin's choice
-                }
+        String uuid = UUID.randomUUID().toString(); // Generate UUID
+        userService.runBashScript("test-create-user.sh", email, uuid); // Call bash script to onboard user
+        System.out.println("User onboarded with UUID: " + uuid);   
+    }
+
+    public void downloadListOfUsers() throws IOException, InterruptedException {
+        // Implement list of users download logic here
+        String report = userService.runBashScript("generate_csv.sh");
+        System.out.println(report); // Print the output from the bash script
+        System.out.println("You can download the user report from the specified location.");
+    }
 }

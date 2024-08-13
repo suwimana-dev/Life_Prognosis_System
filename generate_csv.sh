@@ -1,7 +1,4 @@
 
-
-
-
 #!/bin/bash
 
 # Define the input and output files

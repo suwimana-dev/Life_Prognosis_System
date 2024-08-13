@@ -1,5 +1,5 @@
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,16 +20,11 @@ public class Patient extends User {
     /**
      * Constructor to initialize a Patient object.
      */
-    public Patient(String firstName, String lastName, String inputEmail, String inputPassword,
-                   LocalDate dateBirth, boolean statusHiv, LocalDate dateDiagnosis, boolean statusArt, LocalDate dateArt, String countryISO) {
-        super(firstName, lastName, inputEmail, inputPassword, Profile.PATIENT);
-        this.dateBirth = dateBirth;
-        this.statusHiv = statusHiv;
-        this.dateDiagnosis = dateDiagnosis;
-        this.statusArt = statusArt;
-        this.dateArt = dateArt;
-        this.countryISO = countryISO;
+    public Patient(String inputEmail) {
+        super(inputEmail, "", "", "", Profile.PATIENT);
     }
+
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
 
     @Override
     public void displayMenu()  {
@@ -74,50 +69,5 @@ public class Patient extends User {
             }
             // Switch based on patient's choice
                     }
-    }
-
-    // Helper method to validate email format
-    private static boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    // Helper method to validate UUID format
-    private static boolean isValidUUID(String uuid) {
-        String uuidRegex = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
-        Pattern pattern = Pattern.compile(uuidRegex);
-        Matcher matcher = pattern.matcher(uuid);
-        return matcher.matches();
-    }
-
-    // Helper method to validate date format (YYYY-MM-DD)
-    private static boolean isValidDate(String date) {
-        String dateRegex = "^\\d{4}-\\d{2}-\\d{2}$";
-        Pattern pattern = Pattern.compile(dateRegex);
-        Matcher matcher = pattern.matcher(date);
-        return matcher.matches();
-    }
-
-    // Helper method to validate date order
-    private static boolean isDateOrderValid(String dateBirth, String dateDiagnosis, String dateArt) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try {
-            LocalDate birthDate = LocalDate.parse(dateBirth, formatter);
-            LocalDate diagnosisDate = LocalDate.parse(dateDiagnosis, formatter);
-            LocalDate artDate = LocalDate.parse(dateArt, formatter);
-
-            return birthDate.isBefore(diagnosisDate) && diagnosisDate.isBefore(artDate);
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-    }
-}
-
-
-    @Override
-    public void logout() {
-        // Implement logout logic for Patient
     }
 }

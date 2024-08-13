@@ -1,15 +1,12 @@
 
 import java.io.BufferedReader; // Importing BufferedReader to read input from the user
+<<<<<<< HEAD
 import java.io.Console;
 import java.io.FileInputStream;
+=======
+>>>>>>> 39ec13f (Admin reports)
 import java.io.IOException; // Importing InputStreamReader to read input from the user
 import java.io.InputStreamReader; // Importing IOException to handle IO exceptions
-import java.time.LocalDate; // Importing UUID to generate unique IDs
-import java.time.format.DateTimeFormatter; // Importing Matcher for regex operations
-import java.time.format.DateTimeParseException; // Importing Pattern for regex operations
-import java.util.UUID; // Importing LocalDate for date operations
-import java.util.regex.Matcher; // Importing DateTimeFormatter for date formatting
-import java.util.regex.Pattern; // Importing DateTimeParseException for handling date parsing exceptions
  
 public class Main {
 
@@ -29,20 +26,26 @@ public class Main {
                 switch (choice) { // Switch based on user's choice
                     case 1 -> {
                         //Login_Admin
-                    UserService userService = new UserService();
-                    String userRole = userService.login();
-                    switch (userRole) {
-                        case "ADMIN" -> {
-                            Admin loggedInUser  = new Admin(); // Call admin actions handler if login is successful
-                            loggedInUser.displayMenu();
+                        System.out.println("Enter your email:");
+                        String email = System.console().readLine(); // Get admin email
+                        char[] passwordArray = System.console().readPassword("Enter your password:");
+                        String password = new String(passwordArray);
+                        UserService userService = new UserService();
+                        String userRole = userService.login(email, password);
+                        switch (userRole) {
+                            case "ADMIN" -> {
+                                Admin loggedInUser  = new Admin(email); // Call admin actions handler if login is successful
+                                loggedInUser.displayMenu();
+                            }
+                            case "PATIENT" -> {
+                                Patient loggedInUser = new Patient(email);
+                                loggedInUser.displayMenu();
+                            }
+                            default -> System.out.println("Invalid login credentials."); // Handle invalid login
                         }
-                        case "PATIENT" -> {
-                            Patient loggedInUser = new Patient()
-                            loggedInUser.displayMenu();
-                        }
-                        default -> System.out.println("Invalid login credentials."); // Handle invalid login
-                        }
+                    }
                     case 2 -> {
+<<<<<<< HEAD
                         // registration for user.
 
                         System.out.println("Enter the UUID of the user:");
@@ -142,6 +145,9 @@ public class Main {
                             //runBashScript("user-manager.sh", "register", firstName, lastName, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
                             System.out.println("Patient registered successfully.");
                         }
+=======
+                        
+>>>>>>> 39ec13f (Admin reports)
                     }
                     case 3 -> {
                         // Exit
@@ -157,6 +163,7 @@ public class Main {
             System.err.println("Error: " + e.getMessage());
         }
     }
+<<<<<<< HEAD
 
     private static void handleAdminMenu(BufferedReader reader) throws IOException, InterruptedException {
         while (true) { // Loop to keep the admin menu running
@@ -609,3 +616,6 @@ public class Main {
         }
     }
 }
+=======
+}
+>>>>>>> 39ec13f (Admin reports)
