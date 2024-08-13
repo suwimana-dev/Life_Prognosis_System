@@ -10,34 +10,11 @@ import java.time.format.DateTimeParseException; // Importing Pattern for regex o
 import java.util.UUID; // Importing LocalDate for date operations
 import java.util.regex.Matcher; // Importing DateTimeFormatter for date formatting
 import java.util.regex.Pattern; // Importing DateTimeParseException for handling date parsing exceptions
-
+ 
 public class Main {
 
     // Method to run the bash script with specified arguments and return the output as a String
-    private static String runBashScript(String scriptName, String... args) throws IOException, InterruptedException {
-        // Construct command to run the bash script with arguments
-        StringBuilder command = new StringBuilder("bash ").append(scriptName);
-        for (String arg : args) {
-            command.append(" ").append(arg);
-        }
-
-        // Execute the command
-        Process process = Runtime.getRuntime().exec(command.toString());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-        // Read and accumulate the output from the script
-        StringBuilder output = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            output.append(line).append("\n");
-        }
-
-        // Wait for the process to complete
-        process.waitFor();
-
-        // Return the accumulated output as a String
-        return output.toString().trim();
-    }
+    
 
     public static void main(String[] args) {
         try {
@@ -52,39 +29,19 @@ public class Main {
                 switch (choice) { // Switch based on user's choice
                     case 1 -> {
                         //Login_Admin
-
-                        System.out.println("Enter your email:");
-                        String adminEmail = reader.readLine(); // Get admin email
-                        Console console = System.console();
-                        if (console == null) {
-                            return;
+                    UserService userService = new UserService();
+                    String userRole = userService.login();
+                    switch (userRole) {
+                        case "ADMIN" -> {
+                            Admin loggedInUser  = new Admin(); // Call admin actions handler if login is successful
+                            loggedInUser.displayMenu();
                         }
-                        char[] passwordArray = console.readPassword("Enter your password:");
-                        String password = new String(passwordArray);
-                        String adminPassword = password;
-
-                        //System.out.println("Enter your password:");
-                        //String adminPassword = reader.readLine(); // Get admin password
-                        //String result = runBashScript("user-manager.sh", "login", adminEmail, adminPassword); // Call bash script to login admin
-                        String result = runBashScript("user_login.sh", adminEmail, adminPassword);
-
-                        System.out.println("Login was " + result);
-
-                        if (null == result.trim()) {
-
-                            System.out.println("Invalid login credentials."); // Handle invalid login
-                        } else // Determine the action based on the user type returned
-                        {
-                            switch (result.trim()) {
-                                case "ADMIN" ->
-                                    adminActions(reader); // Call admin actions handler if login is successful
-                                case "PATIENT" ->
-                                    patientActions(reader); // Call patient actions handler if login is successful
-                                default ->
-                                    System.out.println("Invalid login credentials."); // Handle invalid login
-                            }
+                        case "PATIENT" -> {
+                            Patient loggedInUser = new Patient()
+                            loggedInUser.displayMenu();
                         }
-                    }
+                        default -> System.out.println("Invalid login credentials."); // Handle invalid login
+                        }
                     case 2 -> {
                         // registration for user.
 
