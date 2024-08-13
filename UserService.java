@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 public class UserService {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
 
-    public String login(){
+    public String[] login(){
          
             //Login_Admin
             
@@ -33,7 +33,7 @@ public class UserService {
                     
                     return "Invalid login credentials.";
                 } else // Determine the action based on the user type returned
-                    return result.trim();
+                    return [result.trim(), adminEmail, adminPassword];
         }
 
     private static String runBashScript(String scriptName, String... args) throws IOException, InterruptedException {

@@ -6,8 +6,8 @@ import java.util.UUID;
  * Admin class extends User and adds admin-specific methods.
  */
 public class Admin extends User {
-    public Admin(String firstName, String lastName, String inputEmail, String inputPassword) {
-        super(firstName, lastName, inputEmail, inputPassword, Profile.ADMIN);
+    public Admin(String inputEmail, String inputPassword) {
+        super(inputEmail, inputPassword, Profile.ADMIN);
     }
     
     @Override

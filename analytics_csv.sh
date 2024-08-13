@@ -1,20 +1,12 @@
+input_file="analytics.csv"
+output_file="download_analytics.csv"
+formatted_output_file="formatted_analytics.csv"
 
 
-
-
-#!/bin/bash
-
-# Define the input and output files
-input_file="user-store.txt"
-output_file="user_report.csv"
-formatted_output_file="formatted_output.csv"
-
-# Read the user store file and convert it to a CSV format
-# The user store is assumed to be in the format: email;password;role;optional_fields...
 # The CSV will contain the same data with the columns separated by commas
 
 # Write the header to the CSV file
-echo "Email,Password,Role,UUID,firstname,lastname,dateofbirth," > "$output_file"
+echo "Email,Age,Lifespan" > "$output_file"
 
 # Convert the semicolon-separated values to comma-separated values
 awk 'BEGIN { FS = ";" ; OFS = "," } { print $0 }' "$input_file" >> "$output_file"
