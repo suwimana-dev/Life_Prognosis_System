@@ -479,14 +479,6 @@ public class Main {
         return matcher.matches();
     }
 
-    // Helper method to validate UUID format
-    private static boolean isValidUUID(String uuid) {
-        String uuidRegex = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
-        Pattern pattern = Pattern.compile(uuidRegex);
-        Matcher matcher = pattern.matcher(uuid);
-        return matcher.matches();
-    }
-
     // Helper method to validate date format (YYYY-MM-DD)
     private static boolean isValidDate(String date) {
         String dateRegex = "^\\d{4}-\\d{2}-\\d{2}$";

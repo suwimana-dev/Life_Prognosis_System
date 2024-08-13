@@ -32,7 +32,7 @@ public class Patient extends User {
     UserService userService = new UserService();
 
     @Override
-    public void displayMenu()  {
+    public void displayMenu() throws NumberFormatException, IOException {
         while (true) { // Loop to keep patient actions menu running
             // Display the Patient Actions Menu in an aesthetically pleasing format
             System.out.println("========================================");
@@ -154,19 +154,18 @@ public class Patient extends User {
          
         }
 
-    public void registerUser(){
+    public void registerUser()  throws IOException, InterruptedException  {
         // registration for user.
 
                         System.out.println("Enter the UUID of the user:");
                         String uuid = reader.readLine(); // Get UUID
 
-                        if (!isValidUUID(uuid)) { // Validate UUID format
+                        if (!userService.isValidUUID(uuid)) { // Validate UUID format
                             System.out.println("Invalid UUID. Please try again.");
-                            break;
                         }
                         //String email = runBashScript("user-manager.sh", "verify-uuid", uuid); // Call bash script to verify UUID
                         //Call bash script to verify UUID, returns email
-                        String email = (UserService.runBashScript("verifyuuid.sh", uuid));
+                        String email = UserService.runBashScript("verifyuuid.sh", uuid);
 
                         if (email.isEmpty()) {
                             System.out.println("Invalid UUID."); // Handle invalid UUID
