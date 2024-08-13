@@ -26,3 +26,4 @@ email5@gmail.com;123456;PATIENT;JIJI;KOKO;345f94b4-50cf-412a-a9bb-39998706cc04;1
 
 
 
+testuser@mail.com;64d4dd6d-f20d-46e7-805e-2c8ccf404fc9
