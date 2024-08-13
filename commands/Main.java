@@ -1,4 +1,4 @@
-import java.io.BufferedReader; // Importing BufferedReader to read input from the user
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
  
@@ -8,6 +8,7 @@ public class Main {
     
 
     public static void main(String[] args) {
+        UserService userService = new UserService();
         try {
             while (true) { // Infinite loop to keep the program running
                 // Display initial menu
@@ -24,7 +25,6 @@ public class Main {
                         String email = System.console().readLine(); // Get admin email
                         char[] passwordArray = System.console().readPassword("Enter your password:");
                         String password = new String(passwordArray);
-                        UserService userService = new UserService();
                         String userRole = userService.login(email, password);
                         switch (userRole) {
                             case "ADMIN" -> {
@@ -39,7 +39,9 @@ public class Main {
                         }
                     }
                     case 2 -> {
-                        // to do here
+                        // registration of a patient 
+                        userService.registerPatient();
+                
                     }
                     case 3 -> {
                         // Exit

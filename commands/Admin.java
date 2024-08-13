@@ -1,6 +1,3 @@
-
-//package commands;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -74,19 +71,19 @@ public class Admin extends User {
             return;
         }
         String uuid = UUID.randomUUID().toString(); // Generate UUID
-        userService.runBashScript("test-create-user.sh", email, uuid); // Call bash script to onboard user
+        userService.runBashScript("../scripts/test-create-user.sh", email, uuid); // Call bash script to onboard user
         System.out.println("User onboarded with UUID: " + uuid);   
     }
     public void downloadReports() throws IOException, InterruptedException {
         // Implement list of users download logic here
-        String report = userService.runBashScript("analytics.sh");
+        String report = userService.runBashScript("../scripts/analytics.sh");
         System.out.println(report); // Print the output from the bash script
         System.out.println("You can download the analytics reports from the specified location.");
     }
 
     public void downloadListOfUsers() throws IOException, InterruptedException {
         // Implement list of users download logic here
-        String report = userService.runBashScript("generate_csv.sh");
+        String report = userService.runBashScript("../scripts/generate_csv.sh");
         System.out.println(report); // Print the output from the bash script
         System.out.println("You can download the user report from the specified location.");
     }

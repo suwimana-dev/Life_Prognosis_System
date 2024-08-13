@@ -40,7 +40,7 @@ public class UserService {
          
         //Login_Admin          
         
-        String result = runBashScript("user_login.sh", email, password);
+        String result = runBashScript("../scripts/user_login.sh", email, password);
 
         System.out.println("Login was " + result);
 
@@ -62,7 +62,7 @@ public class UserService {
         }
         //String email = runBashScript("user-manager.sh", "verify-uuid", uuid); // Call bash script to verify UUID
         //Call bash script to verify UUID, returns email
-        String email = (runBashScript("verifyuuid.sh", uuid)); 
+        String email = (runBashScript("../scripts/verifyuuid.sh", uuid)); 
         
         if (email.isEmpty()) {
             System.out.println("Invalid UUID."); // Handle invalid UUID
@@ -119,7 +119,7 @@ public class UserService {
             String apassword = new String(passwordArray);
             String password = apassword;
             // Call bash script to register patient
-            runBashScript("user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
+            runBashScript("../scripts/user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
             //runBashScript("user-manager.sh", "register", firstName, lastName, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
             System.out.println("Patient registered successfully.");
         }

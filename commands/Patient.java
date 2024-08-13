@@ -22,7 +22,7 @@ public class Patient extends User {
      * Constructor to initialize a Patient object.
      */
     public Patient(String inputEmail) {
-        super(inputEmail, "", "", "", Profile.PATIENT);
+        super("", "", inputEmail, "", Profile.PATIENT);
     }
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
@@ -44,12 +44,11 @@ public class Patient extends User {
             System.out.println("========================================");
             System.out.print("Please select an option: ");
             int choice = Integer.parseInt(reader.readLine()); // Get patient's choice
-
             switch (choice) { // Switch based on patient's choice
                 case 1 -> {
                     // Update Profile
                     try {
-                        viewProfile();
+                        viewProfile(this.inputEmail);
                     } catch (IOException | InterruptedException ex) {
 
                     }
@@ -89,11 +88,12 @@ public class Patient extends User {
         }
     }
 
-    public void viewProfile() throws IOException, InterruptedException {
+    public void viewProfile(String email) throws IOException, InterruptedException {
         // Viewing patient's Profile
         try {
             // Call the bash script to retrieve the user's profile line
-            String userInfo = userService.runBashScript("ViewProfile.sh").trim();
+            String userInfo = userService.runBashScript("../scripts/ViewProfile.sh", email);
+           
 
             if (userInfo.isEmpty()) {
                 System.out.println("User not found.");
@@ -134,7 +134,7 @@ public class Patient extends User {
         try {
             // Import FileInputStream to handle file reading
             // Read the email of the logged-in user from session.txt
-            String emailFilePath = "session.txt";
+            String emailFilePath = "../data/session.txt";
             BufferedReader emailBufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(emailFilePath)));
             String email = emailBufferedReader.readLine().trim();
             emailBufferedReader.close();
@@ -147,7 +147,7 @@ public class Patient extends User {
             System.out.println("\n \nLeave blank to keep current values.");
 
             // Retrieve current profile information from user-store.txt via Bash script
-            String currentInfo = userService.runBashScript("UpdateProfile.sh", "read", email);
+            String currentInfo = userService.runBashScript("../scripts/UpdateProfile.sh", "read", email);
             String[] fields = currentInfo.split(";");
 
             if (fields.length != 12) {
@@ -250,7 +250,7 @@ public class Patient extends User {
 
             if (confirm.equalsIgnoreCase("yes")) {
                 // Call the bash script to update the profile
-                String result = userService.runBashScript("UpdateProfile.sh", "write", newEmail, newPassword, newProfile, firstName, lastName, uuid,
+                String result = userService.runBashScript("../scripts/UpdateProfile.sh", "write", newEmail, newPassword, newProfile, firstName, lastName, uuid,
                         dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO);
                 System.out.println(result);
             } else {
@@ -272,7 +272,7 @@ public class Patient extends User {
         String checkmail = reader.readLine(); // Get patient email
         // System.out.println("Enter your password:");
         // String patientPassword = reader.readLine(); // Get patient password
-        String lsp = userService.runBashScript("lifespancompute.sh", checkmail);
+        String lsp = userService.runBashScript("../scripts/lifespancompute.sh", checkmail);
         System.out.println("Lifespan computation result: " + lsp);
     }
 
@@ -292,7 +292,7 @@ public class Patient extends User {
         }
         //String email = runBashScript("user-manager.sh", "verify-uuid", uuid); // Call bash script to verify UUID
         //Call bash script to verify UUID, returns email
-        String email = userService.runBashScript("verifyuuid.sh", uuid);
+        String email = userService.runBashScript("../scripts/verifyuuid.sh", uuid);
 
         if (email.isEmpty()) {
             System.out.println("Invalid UUID."); // Handle invalid UUID
@@ -352,7 +352,7 @@ public class Patient extends User {
             //String password = reader.readLine(); // Get password
 
             // Call bash script to register patient
-            userService.runBashScript("user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO);
+            userService.runBashScript("../scripts/user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO);
             //runBashScript("user-manager.sh", "register", firstName, lastName, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
             System.out.println("Patient registered successfully.");
         }
