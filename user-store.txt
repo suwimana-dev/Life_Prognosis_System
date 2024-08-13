@@ -21,3 +21,8 @@ umail@mail.com;123456;PATIENT;uniform;bravo;3a0c5165-1970-4e25-a895-127075865248
 rwauser@mail.com;147;PATIENT;rwa;user;d00b5d61-6547-423e-b62e-bb291ba2f320;1995-08-02;true;2000-08-04;true;2002-05-02;RWA
 kenuser@mail.com;258;PATIENT;ken;user;7bdb876e-ad3f-4600-9c65-7e4fab55ef08;2004-02-04;false;null;null;null;per
 conuser@mail.com;789;PATIENT;con;user;3ed4679b-5ea1-4924-96dd-6788c8593b04;1998-05-04;true;2001-04-07;true;2005-04-07;NPL
+email2@email.com;123456;PATIENT;KKK;2023-01-01;173fa360-f4b0-4866-ac80-052f0153f0c3;true;2024-03-01;true;2024-07-08;250;
+email5@gmail.com;123456;PATIENT;JIJI;KOKO;345f94b4-50cf-412a-a9bb-39998706cc04;1995-02-06;true;1996-02-06;true;1996-02-06;ABC
+
+
+
