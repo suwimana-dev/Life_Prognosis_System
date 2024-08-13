@@ -584,6 +584,7 @@ public class Main {
                     String lsp = runBashScript("lifespancompute.sh", checkmail);
                     System.out.println("Lifespan computation result: " + lsp);
                 }
+
                 case 4 -> {
                     // Download iCalendar (to be implemented later)
                     System.out.println("Downloading iCalendar...");

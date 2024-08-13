@@ -55,7 +55,7 @@ register_patient() {
 
 # Function to login a user
 login_user() {
-    echo "123234"
+    #echo "123234"
     email=$1  # First argument: user's email
     password=$2  # Second argument: user's password
     # Simulate user authentication by checking if the email and password pair exists in user-store.txt
