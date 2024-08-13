@@ -16,7 +16,7 @@ public class Admin extends User {
     UserService userService = new UserService();
     
     @Override
-    public void displayMenu() {
+    public void displayMenu() throws NumberFormatException, IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
 
@@ -30,11 +30,11 @@ public class Admin extends User {
     
             switch (choice) { // Switch based on admin's choice
                 case 1 -> {
-                    try {
+                        try {
                         createUser();
-                    } catch (IOException ex) {
-                        } catch (InterruptedException ex) {
-                            }
+                    }   catch (IOException | InterruptedException ex) {
+
+                    }
                     }
                 case 2 -> {
                     System.out.println("Download the analytics reports");
@@ -42,8 +42,8 @@ public class Admin extends User {
                 case 3 -> {
                 try {
                     this.downloadListOfUsers();
-                } catch (IOException ex) {
-                } catch (InterruptedException ex) {
+                } catch (IOException | InterruptedException ex){
+                    
                 }
                 }
                 case 4 -> {
