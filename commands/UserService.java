@@ -126,7 +126,7 @@ public class UserService {
     }
 
     // Helper method to validate UUID format
-    private static boolean isValidUUID(String uuid) {
+    public boolean isValidUUID(String uuid) {
         String uuidRegex = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
         Pattern pattern = Pattern.compile(uuidRegex);
         Matcher matcher = pattern.matcher(uuid);
@@ -150,7 +150,7 @@ public class UserService {
     }
 
     // Helper method to validate date order
-    private static boolean isDateOrderValid(String dateBirth, String dateDiagnosis, String dateArt) {
+    public boolean isDateOrderValid(String dateBirth, String dateDiagnosis, String dateArt) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             LocalDate birthDate = LocalDate.parse(dateBirth, formatter);
