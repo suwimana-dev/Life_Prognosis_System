@@ -30,10 +30,14 @@
         country_expectancy=$(awk -v num=$country_expectancyNR 'BEGIN { print int(num+0.9999) }')
         #present user age
         let "user_age = $current_date - $user_dob"
+        output_file="computations_file.csv"
+
+        echo "User email,User age,User HIV status,ART Onboard status,Life Expectancy" > "$output_file"
         
         if [ "$user_hiv" = "false" ]; then
             let "life_expectancy = $country_expectancy - $user_age"
             echo $life_expectancy
+            echo "$user_email,$user_age,$user_hiv,$user_art,$life_expectancy" >> $output_file
 
         elif [ "$user_hiv" = "true" ]; then
             if [ "$user_art" = "false" ]; then
@@ -48,6 +52,7 @@
                 
                 if [ "$enrol_diff" = "0" ]; then
                     echo "$positive_expectancy"
+                    echo "$user_email,$user_age,$user_hiv,$user_art,$positive_expectancy" >> $output_file
                 else 
                     i=1
                     while [ "$i" -le $enrol_diff ]; do
@@ -58,6 +63,7 @@
                     done
                     final_lsp=$(awk -v num=$positive_expectancy 'BEGIN { print int(num+0.9999) }')
                     echo "$final_lsp"
+                    echo "$user_email,$user_age,$user_hiv,$user_art,$final_lsp" >> $output_file
                 fi
             fi
         fi
