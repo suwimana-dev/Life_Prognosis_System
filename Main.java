@@ -4,40 +4,11 @@ import java.io.Console;
 import java.io.FileInputStream;
 import java.io.IOException; // Importing InputStreamReader to read input from the user
 import java.io.InputStreamReader; // Importing IOException to handle IO exceptions
-import java.time.LocalDate; // Importing UUID to generate unique IDs
-import java.time.format.DateTimeFormatter; // Importing Matcher for regex operations
-import java.time.format.DateTimeParseException; // Importing Pattern for regex operations
-import java.util.UUID; // Importing LocalDate for date operations
-import java.util.regex.Matcher; // Importing DateTimeFormatter for date formatting
-import java.util.regex.Pattern; // Importing DateTimeParseException for handling date parsing exceptions
-
+ 
 public class Main {
 
     // Method to run the bash script with specified arguments and return the output as a String
-    private static String runBashScript(String scriptName, String... args) throws IOException, InterruptedException {
-        // Construct command to run the bash script with arguments
-        StringBuilder command = new StringBuilder("bash ").append(scriptName);
-        for (String arg : args) {
-            command.append(" ").append(arg);
-        }
-
-        // Execute the command
-        Process process = Runtime.getRuntime().exec(command.toString());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-        // Read and accumulate the output from the script
-        StringBuilder output = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            output.append(line).append("\n");
-        }
-
-        // Wait for the process to complete
-        process.waitFor();
-
-        // Return the accumulated output as a String
-        return output.toString().trim();
-    }
+    
 
     public static void main(String[] args) {
         try {
@@ -52,37 +23,22 @@ public class Main {
                 switch (choice) { // Switch based on user's choice
                     case 1 -> {
                         //Login_Admin
-
                         System.out.println("Enter your email:");
-                        String adminEmail = reader.readLine(); // Get admin email
-                        Console console = System.console();
-                        if (console == null) {
-                            return;
-                        }
-                        char[] passwordArray = console.readPassword("Enter your password:");
+                        String email = System.console().readLine(); // Get admin email
+                        char[] passwordArray = System.console().readPassword("Enter your password:");
                         String password = new String(passwordArray);
-                        String adminPassword = password;
-
-                        //System.out.println("Enter your password:");
-                        //String adminPassword = reader.readLine(); // Get admin password
-                        //String result = runBashScript("user-manager.sh", "login", adminEmail, adminPassword); // Call bash script to login admin
-                        String result = runBashScript("user_login.sh", adminEmail, adminPassword);
-
-                        System.out.println("Login was " + result);
-
-                        if (null == result.trim()) {
-
-                            System.out.println("Invalid login credentials."); // Handle invalid login
-                        } else // Determine the action based on the user type returned
-                        {
-                            switch (result.trim()) {
-                                case "ADMIN" ->
-                                    adminActions(reader); // Call admin actions handler if login is successful
-                                case "PATIENT" ->
-                                    patientActions(reader); // Call patient actions handler if login is successful
-                                default ->
-                                    System.out.println("Invalid login credentials."); // Handle invalid login
+                        UserService userService = new UserService();
+                        String userRole = userService.login(email, password);
+                        switch (userRole) {
+                            case "ADMIN" -> {
+                                Admin loggedInUser  = new Admin(email); // Call admin actions handler if login is successful
+                                loggedInUser.displayMenu();
                             }
+                            case "PATIENT" -> {
+                                Patient loggedInUser = new Patient(email);
+                                loggedInUser.displayMenu();
+                            }
+                            default -> System.out.println("Invalid login credentials."); // Handle invalid login
                         }
                     }
                     case 2 -> {
@@ -309,6 +265,17 @@ public class Main {
                 case 1, 2 -> // Register
                 {
                     // Login
+                    // System.out.println("Enter your email:");
+                    // String patientEmail = reader.readLine(); // Get patient email
+                    // System.out.println("Enter your password:");
+                    // String patientPassword = reader.readLine(); // Get patient password
+                    // String result = runBashScript("user-manager.sh", "login", patientEmail, patientPassword); // Call bash script to login patient
+                    // if ("success".equals(result)) {
+                    //     patientActions(reader); // Call patient actions handler if login is successful
+                    // } else {
+                    //     System.out.println("Invalid login credentials."); // Handle invalid login
+                    // }
+
                     System.out.println("Enter your email:");
                     String patientEmail = reader.readLine(); // Get patient email
 
@@ -321,6 +288,7 @@ public class Main {
                     } else {
                         System.out.println("Invalid login credentials."); // Handle invalid login
                     }
+
                 }
                 // case 3 -> {
                 //     // Exit

@@ -7,7 +7,8 @@ import java.io.IOException;
  public abstract class User {
     // Define new data type Profile for user's role
     public enum Profile {
-        ADMIN, PATIENT
+        ADMIN, 
+        PATIENT
     }
     public String firstName;
     public String lastName;
