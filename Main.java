@@ -1,5 +1,7 @@
+
 import java.io.BufferedReader; // Importing BufferedReader to read input from the user
 import java.io.Console;
+import java.io.FileInputStream;
 import java.io.IOException; // Importing InputStreamReader to read input from the user
 import java.io.InputStreamReader; // Importing IOException to handle IO exceptions
 import java.time.LocalDate; // Importing UUID to generate unique IDs
@@ -54,47 +56,48 @@ public class Main {
                         System.out.println("Enter your email:");
                         String adminEmail = reader.readLine(); // Get admin email
                         Console console = System.console();
-                        if(console==null){
+                        if (console == null) {
                             return;
                         }
                         char[] passwordArray = console.readPassword("Enter your password:");
                         String password = new String(passwordArray);
                         String adminPassword = password;
-                        
+
                         //System.out.println("Enter your password:");
                         //String adminPassword = reader.readLine(); // Get admin password
-
                         //String result = runBashScript("user-manager.sh", "login", adminEmail, adminPassword); // Call bash script to login admin
-                        
                         String result = runBashScript("user_login.sh", adminEmail, adminPassword);
 
                         System.out.println("Login was " + result);
 
-                            if (null == result.trim()) {
-                                
-                                System.out.println("Invalid login credentials."); // Handle invalid login
-                            } else // Determine the action based on the user type returned
-                                switch (result.trim()) {
-                                    case "ADMIN" -> adminActions(reader); // Call admin actions handler if login is successful
-                                    case "PATIENT" -> patientActions(reader); // Call patient actions handler if login is successful
-                                    default -> System.out.println("Invalid login credentials."); // Handle invalid login
-                                    }
+                        if (null == result.trim()) {
+
+                            System.out.println("Invalid login credentials."); // Handle invalid login
+                        } else // Determine the action based on the user type returned
+                        {
+                            switch (result.trim()) {
+                                case "ADMIN" ->
+                                    adminActions(reader); // Call admin actions handler if login is successful
+                                case "PATIENT" ->
+                                    patientActions(reader); // Call patient actions handler if login is successful
+                                default ->
+                                    System.out.println("Invalid login credentials."); // Handle invalid login
+                            }
+                        }
                     }
                     case 2 -> {
                         // registration for user.
 
-                        
                         System.out.println("Enter the UUID of the user:");
                         String uuid = reader.readLine(); // Get UUID
-                        
+
                         if (!isValidUUID(uuid)) { // Validate UUID format
-                             System.out.println("Invalid UUID. Please try again.");
-                             break;
-                         }
+                            System.out.println("Invalid UUID. Please try again.");
+                            break;
+                        }
                         //String email = runBashScript("user-manager.sh", "verify-uuid", uuid); // Call bash script to verify UUID
                         //Call bash script to verify UUID, returns email
-                        String email = (runBashScript("verifyuuid.sh", uuid)); 
-                        
+                        String email = (runBashScript("verifyuuid.sh", uuid));
 
                         if (email.isEmpty()) {
                             System.out.println("Invalid UUID."); // Handle invalid UUID
@@ -121,7 +124,7 @@ public class Main {
                                 dateDiagnosis = reader.readLine(); // Get date of diagnosis
                                 if (!isValidDate(dateDiagnosis)) { // Validate date format
                                     System.out.println("Invalid date format. Please try again.");
-                                break;
+                                    break;
                                 }
                                 System.out.println("ART Status (true/false):");
                                 statusArt = reader.readLine(); // Get ART status
@@ -129,16 +132,15 @@ public class Main {
                                 dateArt = reader.readLine(); // Get date of ART
                                 if (!isValidDate(dateArt)) { // Validate date format
                                     System.out.println("Invalid date format. Please try again.");
-                                break;
+                                    break;
                                 }
 
-                            //Validate date order
+                                //Validate date order
                                 if (!isDateOrderValid(dateBirth, dateDiagnosis, dateArt)) {
                                     System.out.println("Invalid date order. Ensure date of birth is before diagnosis and ART dates.");
-                                break;
+                                    break;
                                 }
 
-                                
                             } else if (statusHiv.equalsIgnoreCase("false")) {
                                 //return;
                             } else {
@@ -146,7 +148,7 @@ public class Main {
                                 System.exit(0);
 
                             }
-                            
+
                             // System.out.println("Date of Diagnosis (YYYY-MM-DD):");
                             // String dateDiagnosis = reader.readLine(); // Get date of diagnosis
                             // if (!isValidDate(dateDiagnosis)) { // Validate date format
@@ -161,17 +163,15 @@ public class Main {
                             //     System.out.println("Invalid date format. Please try again.");
                             //     break;
                             // }
-
                             // // Validate date order
                             // if (!isDateOrderValid(dateBirth, dateDiagnosis, dateArt)) {
                             //     System.out.println("Invalid date order. Ensure date of birth is before diagnosis and ART dates.");
                             //     break;
                             // }
-
                             System.out.println("Country ISO Code:");
                             String countryISO = reader.readLine(); // Get country ISO code
                             Console console = System.console();
-                            if(console==null){
+                            if (console == null) {
                                 return;
                             }
                             char[] passwordArray = console.readPassword("Enter password:");
@@ -181,7 +181,7 @@ public class Main {
                             //String password = reader.readLine(); // Get password
 
                             // Call bash script to register patient
-                            runBashScript("user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
+                            runBashScript("user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO);
                             //runBashScript("user-manager.sh", "register", firstName, lastName, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
                             System.out.println("Patient registered successfully.");
                         }
@@ -191,10 +191,11 @@ public class Main {
                         System.out.println("Exiting...");
                         return; // Exit the program
                     }
-                    default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
+                    default ->
+                        System.out.println("Invalid choice, please try again."); // Handle invalid choice
                 }
                 // Switch based on user's choice
-                            }
+            }
         } catch (IOException | InterruptedException e) { // Catch exceptions
             System.err.println("Error: " + e.getMessage());
         }
@@ -230,7 +231,8 @@ public class Main {
                     // Exit to Main Menu
                     return; // Return to main menu
                 }
-                default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
+                default ->
+                    System.out.println("Invalid choice, please try again."); // Handle invalid choice
             }
             // Switch based on admin's choice
             // Login
@@ -245,7 +247,7 @@ public class Main {
             //     System.out.println("Invalid login credentials."); // Handle invalid login
             // }
             // break;
-                    }
+        }
     }
 
     private static void adminActions(BufferedReader reader) throws IOException, InterruptedException {
@@ -287,10 +289,11 @@ public class Main {
                     // Logout
                     return; // Logout and return to admin menu
                 }
-                default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
+                default ->
+                    System.out.println("Invalid choice, please try again."); // Handle invalid choice
             }
             // Switch based on admin's choice
-                    }
+        }
     }
 
     private static void handlePatientMenu(BufferedReader reader) throws IOException, InterruptedException {
@@ -308,7 +311,6 @@ public class Main {
                     // Login
                     System.out.println("Enter your email:");
                     String patientEmail = reader.readLine(); // Get patient email
-
 
                     System.out.println("Enter your password:");
                     //Console console = System.console();
@@ -378,32 +380,199 @@ public class Main {
             //     System.out.println("Patient registered successfully.");
             // }
             // break;
-                    }
+        }
     }
 
     private static void patientActions(BufferedReader reader) throws IOException, InterruptedException {
         while (true) { // Loop to keep patient actions menu running
-            System.out.println("Patient Actions Menu:");
+            // Display the Patient Actions Menu in an aesthetically pleasing format
+            System.out.println("========================================");
+            System.out.println("          PATIENT ACTIONS MENU          ");
+            System.out.println("========================================");
             System.out.println("1. Update Profile");
             System.out.println("2. View Profile");
-            System.out.println("3. Calculate Lifespan");
-            System.out.println("4: Download iCalendar");
+            System.out.println("3. Computer Lifespan");
+            System.out.println("4. Download iCalendar");
             System.out.println("5. Logout");
+            System.out.println("========================================");
+            System.out.print("Please select an option: ");
+
             int choice = Integer.parseInt(reader.readLine()); // Get patient's choice
 
             switch (choice) { // Switch based on patient's choice
                 case 1 -> {
-                    // Update Profile
-                    System.out.println("Updating profile...");
-                    // Call bash script to update profile
-                    System.out.println("Profile updated.");
+                    try {
+                        // Import FileInputStream to handle file reading
+                        // Read the email of the logged-in user from session.txt
+                        String emailFilePath = "session.txt";
+                        BufferedReader emailBufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(emailFilePath)));
+                        String email = emailBufferedReader.readLine().trim();
+                        emailBufferedReader.close();
+
+                        if (email == null || email.isEmpty()) {
+                            System.out.println("No email found. Please login first.");
+                            break; // Exit case if email is not available
+                        }
+
+                        System.out.println("\nUpdating profile for: " + email);
+                        System.out.println("\n \nLeave blank to keep current values.");
+
+                        // Retrieve current profile information from user-store.txt via Bash script
+                        String currentInfo = runBashScript("UpdateProfile.sh", "read", email);
+                        String[] fields = currentInfo.split(";");
+
+                        if (fields.length != 12) {
+                            System.out.println("Error: Incorrect format in user-store.txt. Please check the file format.");
+                            System.out.println("Received data: " + currentInfo);
+                            break;
+                        }
+
+                        // Prompt for new values with defaults from current profile information
+                        BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+
+                        // Display current profile details with sensitive information hidden
+                        System.out.println("\nCurrent profile details:\n");
+                        System.out.println("========================================");
+                        System.out.println("Email               : " + fields[0]);
+                        System.out.println("Password            : *******"); // Hide the password
+                        System.out.println("Profile             : " + fields[2]);
+                        System.out.println("First Name          : " + fields[3]);
+                        System.out.println("Last Name           : " + fields[4]);
+                        System.out.println("UUID                : " + fields[5]);
+                        System.out.println("Date of Birth       : " + fields[6]);
+                        System.out.println("HIV Status          : " + fields[7]);
+                        System.out.println("Date of Diagnosis   : " + fields[8]);
+                        System.out.println("ART Status          : " + fields[9]);
+                        System.out.println("Date of ART         : " + fields[10]);
+                        System.out.println("Country ISO Code    : " + fields[11]);
+                        System.out.println("========================================");
+
+                        // Collect new values from the user
+                        System.out.print("\nNew Email (leave blank to keep current): ");
+                        String newEmail = inputReader.readLine().trim();
+                        newEmail = newEmail.isEmpty() ? fields[0] : newEmail;
+
+                        System.out.print("Enter Old Password to Change: ");
+                        String oldPassword = inputReader.readLine().trim();
+                        if (!oldPassword.equals(fields[1])) {
+                            System.out.println("Incorrect old password. Aborting.");
+                            break;
+                        }
+
+                        System.out.print("New Password (leave blank to keep current): ");
+                        String newPassword = inputReader.readLine().trim();
+                        newPassword = newPassword.isEmpty() ? fields[1] : newPassword;
+
+                        System.out.print("New Profile Type (e.g., PATIENT, leave blank to keep current): ");
+                        String newProfile = inputReader.readLine().trim();
+                        newProfile = newProfile.isEmpty() ? fields[2] : newProfile;
+
+                        System.out.print("New First Name (leave blank to keep current): ");
+                        String firstName = inputReader.readLine().trim();
+                        firstName = firstName.isEmpty() ? fields[3] : firstName;
+
+                        System.out.print("New Last Name (leave blank to keep current): ");
+                        String lastName = inputReader.readLine().trim();
+                        lastName = lastName.isEmpty() ? fields[4] : lastName;
+
+                        System.out.print("New UUID (leave blank to keep current): ");
+                        String uuid = inputReader.readLine().trim();
+                        uuid = uuid.isEmpty() ? fields[5] : uuid;
+
+                        System.out.print("New Date of Birth (YYYY-MM-DD, leave blank to keep current): ");
+                        String dateBirth = inputReader.readLine().trim();
+                        dateBirth = dateBirth.isEmpty() ? fields[6] : dateBirth;
+
+                        System.out.print("New HIV Status (true/false, leave blank to keep current): ");
+                        String statusHiv = inputReader.readLine().trim();
+                        statusHiv = statusHiv.isEmpty() ? fields[7] : statusHiv;
+
+                        System.out.print("New Date of Diagnosis (YYYY-MM-DD, leave blank to keep current): ");
+                        String dateDiagnosis = inputReader.readLine().trim();
+                        dateDiagnosis = dateDiagnosis.isEmpty() ? fields[8] : dateDiagnosis;
+
+                        System.out.print("New ART Status (true/false, leave blank to keep current): ");
+                        String statusArt = inputReader.readLine().trim();
+                        statusArt = statusArt.isEmpty() ? fields[9] : statusArt;
+
+                        System.out.print("New Date of ART (YYYY-MM-DD, leave blank to keep current): ");
+                        String dateArt = inputReader.readLine().trim();
+                        dateArt = dateArt.isEmpty() ? fields[10] : dateArt;
+
+                        System.out.print("New Country ISO Code (leave blank to keep current): ");
+                        String countryISO = inputReader.readLine().trim();
+                        countryISO = countryISO.isEmpty() ? fields[11] : countryISO;
+
+                        // Confirm changes before updating
+                        System.out.println("========================================");
+                        System.out.println("\nUpdated information");
+                        System.out.println("New Email          : " + newEmail);
+                        System.out.println("New Password       : " + (newPassword.isEmpty() ? "No change" : "*****")); // Hide the new password
+                        System.out.println("New Profile        : " + newProfile);
+                        System.out.println("New First Name     : " + firstName);
+                        System.out.println("New Last Name      : " + lastName);
+                        System.out.println("New UUID           : " + uuid);
+                        System.out.println("New Date of Birth  : " + dateBirth);
+                        System.out.println("New HIV Status     : " + statusHiv);
+                        System.out.println("New Date of Diagnosis: " + dateDiagnosis);
+                        System.out.println("New ART Status     : " + statusArt);
+                        System.out.println("New Date of ART    : " + dateArt);
+                        System.out.println("New Country ISO Code: " + countryISO);
+                        System.out.print("\n\nConfirm changes? (yes/no): ");
+                        String confirm = inputReader.readLine().trim();
+
+                        if (confirm.equalsIgnoreCase("yes")) {
+                            // Call the bash script to update the profile
+                            String result = runBashScript("UpdateProfile.sh", "write", newEmail, newPassword, newProfile, firstName, lastName, uuid,
+                                    dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO);
+                            System.out.println(result);
+                        } else {
+                            System.out.println("Profile update canceled.");
+                        }
+                    } catch (IOException e) {
+                        System.err.println("An error occurred while updating the profile:");
+                        e.printStackTrace();
+                    }
                 }
+
                 case 2 -> {
-                    // View Profile
-                    System.out.println("Viewing profile...");
-                    // Call bash script to view profile
-                    System.out.println("Profile viewed.");
+                    try {
+                        // Call the bash script to retrieve the user's profile line
+                        String userInfo = runBashScript("ViewProfile.sh").trim();
+
+                        if (userInfo.isEmpty()) {
+                            System.out.println("User not found.");
+                        } else {
+                            // Split the retrieved line into the corresponding fields
+                            String[] userArray = userInfo.split(";");
+
+                            // Ensure that the array matches the user-store.txt format
+                            if (userArray.length == 12) {
+                                System.out.println("==========================================================");
+                                System.out.println("               USER PROFILE             ");
+                                System.out.println("==========================================================");
+                                System.out.printf("%-20s: %s%n", "Email", userArray[0]);
+                                System.out.printf("%-20s: %s%n", "Password", userArray[1]);
+                                System.out.printf("%-20s: %s%n", "Profile Type", userArray[2]);
+                                System.out.printf("%-20s: %s%n", "First Name", userArray[3]);
+                                System.out.printf("%-20s: %s%n", "Last Name", userArray[4]);
+                                System.out.printf("%-20s: %s%n", "UUID", userArray[5]);
+                                System.out.printf("%-20s: %s%n", "Date of Birth", userArray[6]);
+                                System.out.printf("%-20s: %s%n", "HIV Status", userArray[7]);
+                                System.out.printf("%-20s: %s%n", "Date of Diagnosis", userArray[8]);
+                                System.out.printf("%-20s: %s%n", "ART Status", userArray[9]);
+                                System.out.printf("%-20s: %s%n", "Date of ART", userArray[10]);
+                                System.out.printf("%-20s: %s%n", "Country ISO", userArray[11]);
+                                System.out.println("=========================================================");
+                            } else {
+                                System.out.println("Error: Incorrect format in user-store.txt. Please check the file format.");
+                            }
+                        }
+                    } catch (IOException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+
                 case 3 -> {
                     // Compute Lifespan (to be implemented later)
                     System.out.println("Computing lifespan...");
@@ -413,7 +582,7 @@ public class Main {
                     // System.out.println("Enter your password:");
                     // String patientPassword = reader.readLine(); // Get patient password
                     String lsp = runBashScript("lifespancompute.sh", checkmail);
-                    System.out.println("Lifespan computation result: "+lsp);
+                    System.out.println("Lifespan computation result: " + lsp);
                 }
                 case 4 -> {
                     // Download iCalendar (to be implemented later)
@@ -425,10 +594,11 @@ public class Main {
                     // Logout
                     return; // Logout and return to patient menu
                 }
-                default -> System.out.println("Invalid choice, please try again."); // Handle invalid choice
+                default ->
+                    System.out.println("Invalid choice, please try again."); // Handle invalid choice
             }
             // Switch based on patient's choice
-                    }
+        }
     }
 
     // Helper method to validate email format
