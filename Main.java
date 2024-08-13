@@ -1,10 +1,7 @@
 
 import java.io.BufferedReader; // Importing BufferedReader to read input from the user
-<<<<<<< HEAD
 import java.io.Console;
 import java.io.FileInputStream;
-=======
->>>>>>> 39ec13f (Admin reports)
 import java.io.IOException; // Importing InputStreamReader to read input from the user
 import java.io.InputStreamReader; // Importing IOException to handle IO exceptions
  
@@ -45,7 +42,6 @@ public class Main {
                         }
                     }
                     case 2 -> {
-<<<<<<< HEAD
                         // registration for user.
 
                         System.out.println("Enter the UUID of the user:");
@@ -145,9 +141,6 @@ public class Main {
                             //runBashScript("user-manager.sh", "register", firstName, lastName, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
                             System.out.println("Patient registered successfully.");
                         }
-=======
-                        
->>>>>>> 39ec13f (Admin reports)
                     }
                     case 3 -> {
                         // Exit
@@ -163,7 +156,6 @@ public class Main {
             System.err.println("Error: " + e.getMessage());
         }
     }
-<<<<<<< HEAD
 
     private static void handleAdminMenu(BufferedReader reader) throws IOException, InterruptedException {
         while (true) { // Loop to keep the admin menu running
@@ -616,6 +608,3 @@ public class Main {
         }
     }
 }
-=======
-}
->>>>>>> 39ec13f (Admin reports)
