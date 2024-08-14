@@ -273,7 +273,10 @@ public class Patient extends User {
         // System.out.println("Enter your password:");
         // String patientPassword = reader.readLine(); // Get patient password
         String lsp = userService.runBashScript("../scripts/lifespancompute.sh", checkmail);
-        System.out.println("Lifespan computation result: " + lsp);
+        System.out.println("========================================");
+        System.out.println("Lifespan computation result, your life expectancy is: " + lsp + " years.");
+        System.out.println("========================================");
+        
     }
 
     public void downloadIcalendar() throws IOException, InterruptedException {

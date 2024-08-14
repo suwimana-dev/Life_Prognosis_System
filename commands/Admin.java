@@ -23,11 +23,14 @@ public class Admin extends User {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
 
         while (true) { // Loop to keep admin actions menu running
-            System.out.println("Admin Actions Menu:");
+            System.out.println("========================================");
+            System.out.println("          ADMIN ACTIONS MENU          ");
+            System.out.println("========================================");
             System.out.println("1. Create User");
             System.out.println("2. Download Reports");
             System.out.println("3. Download List of Users");
             System.out.println("4. Logout");
+            System.out.println("========================================");
             int choice = Integer.parseInt(reader.readLine()); // Get admin's choice
     
             switch (choice) { // Switch based on admin's choice

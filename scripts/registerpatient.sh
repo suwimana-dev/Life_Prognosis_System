@@ -32,7 +32,7 @@ countryISO=${11}  # Eleventh argument: country ISO code
 
 
 #TRYING TO APPEND ONLY NEW STUFF TO LINE IN USER-STORE.TXT
-file="user-store.txt"
+file="../data/user-store.txt"
 existing_parameters="$email $uuid   $password"
 append_parameters="$firstName    $lastName   $email  $uuid   $password   PATIENT $dateBirth  $statusHiv  $dateDiagnosis  $statusArt  $dateArt    $countryISO"
 line=$(grep -m 1 "$existing_parameters" "$file")

@@ -4,7 +4,7 @@
 if [ "$1" == "read" ]; then
     email=$2
     # Read user profile information based on email
-    grep "^$email;" user-store.txt
+    grep "^$email;" ../data/user-store.txt
 
 elif [ "$1" == "write" ]; then
     newEmail=$2
@@ -21,7 +21,7 @@ elif [ "$1" == "write" ]; then
     countryISO=${13}
 
     # Update the line containing the specified email
-    sed -i "/^$newEmail;/c\\$newEmail;$newPassword;$newProfile;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt;$countryISO" user-store.txt
+    sed -i "/^$newEmail;/c\\$newEmail;$newPassword;$newProfile;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt;$countryISO" ../data/user-store.txt
     echo -e "\n"
     echo "Profile updated successfully."
 
