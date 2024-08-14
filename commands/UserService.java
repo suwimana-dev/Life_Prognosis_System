@@ -43,10 +43,12 @@ public class UserService {
         String result = runBashScript("../scripts/user_login.sh", email, password);
 
         System.out.println("Login was " + result);
+        System.out.println("====================");
 
         if (null == result.trim()) {
             
             return "Invalid login credentials.";
+        
         } else // Determine the action based on the user type returned
             return result.trim();
     }
@@ -58,6 +60,7 @@ public class UserService {
         
         if (!isValidUUID(uuid)) { // Validate UUID format
             System.out.println("Invalid UUID. Please try again.");
+            System.out.println("====================");
             return;
         }
         //String email = runBashScript("user-manager.sh", "verify-uuid", uuid); // Call bash script to verify UUID
@@ -66,6 +69,7 @@ public class UserService {
         
         if (email.isEmpty()) {
             System.out.println("Invalid UUID."); // Handle invalid UUID
+            System.out.println("====================");
         } else {
             // Proceed with patient registration
             System.out.println("Enter First Name:");
@@ -122,6 +126,7 @@ public class UserService {
             runBashScript("../scripts/user-manager.sh", "register", firstName, lastName, email, uuid, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
             //runBashScript("user-manager.sh", "register", firstName, lastName, password, dateBirth, statusHiv, dateDiagnosis, statusArt, dateArt, countryISO); 
             System.out.println("Patient registered successfully.");
+            System.out.println("====================");
         }
     }
 

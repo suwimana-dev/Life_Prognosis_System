@@ -4,8 +4,8 @@
     # $user_password=$2
     #echo $user_email
 
-    user_file="user-store.txt"
-    user_expectancyfile="life-expectancy.csv"
+    user_file="../data/user-store.txt"
+    user_expectancyfile="../data/life-expectancy.csv"
     #extraction and authentication -- ALTERNATIVELY, WILL HAVE TO COPY LOGIN METHOD TO DO THE VERIFICATION, 
     #ALSO WHICH USER ACCESSES WHAT, BASE ON SESSION(??) if ADMIN or current user Y
     #echo $user_file
@@ -30,7 +30,7 @@
         country_expectancy=$(awk -v num=$country_expectancyNR 'BEGIN { print int(num+0.9999) }')
         #present user age
         let "user_age = $current_date - $user_dob"
-        output_file="computations_file.csv"
+        output_file="../data/computations_file.csv"
 
         echo "User email,User age,User HIV status,ART Onboard status,Life Expectancy" > "$output_file"
         

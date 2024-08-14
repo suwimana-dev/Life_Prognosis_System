@@ -4,7 +4,7 @@
 onboard_user() {
     email=$1  # First argument: user's email
     uuid=$2  # Second argument: user's UUID
-    echo "$email;$uuid" >> user-store.txt  # Append email and UUID to uuid.txt file, separated by a semicolon
+    echo "$email;$uuid" >> ../data/user-store.txt  # Append email and UUID to uuid.txt file, separated by a semicolon
     echo "User onboarded with UUID: $uuid"  # Print confirmation message
 }
 
@@ -12,7 +12,7 @@ onboard_user() {
 verify_uuid() {
     uuid=$1  # First argument: UUID to verify
     # Use grep to search for the UUID in uuid.txt and cut to extract the email part
-    email=$(grep "$uuid" user-store.txt | cut -d ';' -f1)
+    email=$(grep "$uuid" ../data/user-store.txt | cut -d ';' -f1)
     if [ -z "$email" ]; then  # Check if the email variable is empty (UUID not found)
         echo "Invalid UUID."  # Print error message
     else
@@ -47,7 +47,7 @@ register_patient() {
     #echo "$email;$password;PATIENT;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt;$countryISO" >> user-store.txt
 
     #replace line in userstore with one below i.e., repopulate
-    sed -i "/^$email;$uuid/c\\$email;$password;PATIENT;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt;$countryISO" user-store.txt
+    sed -i "/^$email;$uuid/c\\$email;$password;PATIENT;$firstName;$lastName;$uuid;$dateBirth;$statusHiv;$dateDiagnosis;$statusArt;$dateArt;$countryISO" ../data/user-store.txt
 
     #sed 's/.*/$email.*/&(/echo ";/$password;PATIENT;/$firstName;/$lastName;/$dateBirth;/$statusHiv;/$dateDiagnosis;/$statusArt;/$dateArt;/$countryISO)"/' user-store.txt
     echo "Patient registered successfully."  # Print confirmation message
@@ -59,7 +59,7 @@ login_user() {
     email=$1  # First argument: user's email
     password=$2  # Second argument: user's password
     # Simulate user authentication by checking if the email and password pair exists in user-store.txt
-    result = grep "$email;$password" user-store.txt
+    result = grep "$email;$password" ../data/user-store.txt
     if [[ -v $result ]]; then
         echo "$result"  # Print success message if authentication is successful
     else
@@ -70,7 +70,7 @@ login_user() {
 # Function to generate empty CSV files
 generate_csv() {
     # Create or overwrite users.csv with header fields
-    echo "firstName;lastName;inputEmail;uuid;inputPassword;profile;dateBirth;statusHiv;dateDiagnosis;statusArt;dateArt;countryISO" > users.csv
+    echo "firstName;lastName;inputEmail;uuid;inputPassword;profile;dateBirth;statusHiv;dateDiagnosis;statusArt;dateArt;countryISO" > ../data/users.csv
     # Create or overwrite analytics.csv with placeholder data
     echo "reportData" > analytics.csv
 }

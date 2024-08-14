@@ -12,9 +12,15 @@ public class Main {
         try {
             while (true) { // Infinite loop to keep the program running
                 // Display initial menu
+                System.out.println("========================================");
+                System.out.println("          WELCOME TO THE LIFE PROGNOSIS TOOL          ");
+                System.out.println("========================================");
+                System.out.println("Select one of the options below to proceed (1,2 or 3):");
+                System.out.println("====================");
                 System.out.println("1. Login:");
                 System.out.println("2. Register");
                 System.out.println("3. Exit");
+                System.out.println("========================================");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Reader to get user input
                 int choice = Integer.parseInt(reader.readLine()); // Get user's choice
 
@@ -24,6 +30,7 @@ public class Main {
                         System.out.println("Enter your email:");
                         String email = System.console().readLine(); // Get admin email
                         char[] passwordArray = System.console().readPassword("Enter your password:");
+                        System.out.println("====================");
                         String password = new String(passwordArray);
                         String userRole = userService.login(email, password);
                         switch (userRole) {

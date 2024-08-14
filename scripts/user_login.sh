@@ -56,14 +56,14 @@ password=$2
 # }
 
 # Search for the user record in user-store.txt
-user_record=$(grep "^$email;$password;" user-store.txt)
+user_record=$(grep "^$email;$password;" "../data/user-store.txt")
 
 # Check if the record exists
 if [ -n "$user_record" ]; then
     # Extract the user type (3rd field) from the user record
     user_type=$(echo "$user_record" | awk -F ';' '{print $3}')
 
-    echo "$email" > session.txt
+    echo "$email" > ../data/session.txt
     echo "$user_type"
 else
     echo "error"
