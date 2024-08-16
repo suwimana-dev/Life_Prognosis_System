@@ -14,7 +14,8 @@ formatted_output_file="../data/formatted_output.csv"
 echo "Email,Password,Role,UUID,firstname,lastname,dateofbirth," > "$output_file"
 
 # Convert the semicolon-separated values to comma-separated values
-awk 'BEGIN { FS = ";" ; OFS = "," } { print $0 }' "$input_file" >> "$output_file"
+#awk 'BEGIN { FS = ";" ; OFS = "," } { print $0 }' "$input_file" >> "$output_file"
+awk 'BEGIN { FS = ";" ; OFS = "," } { $2=""; sub(/,,/, ","); print $0}' "$input_file" >> "$output_file"
 # Format CSV into aligned columns
 column -s, -t "$output_file" > "$formatted_output_file"
 
